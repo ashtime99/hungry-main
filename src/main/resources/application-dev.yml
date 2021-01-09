@@ -10,7 +10,7 @@ spring:
 # 日志配置
 logging:
   level:
-    com.ios.demo.dao: trace
+    com.xyc.hungry.dao: trace
 # mybatis-plus
 mybatis-plus:
   global-config:
