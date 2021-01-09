@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/hungry?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+# 日志配置
+logging:
+  level:
+    com.ios.demo.dao: trace
+# mybatis-plus
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: auto
+
