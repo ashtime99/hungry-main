@@ -45,6 +45,9 @@ class UserServiceImplTest {
 
     @Test
     void updateUserById() {
+        User user=userServiceImpl.selectUserById(7);
+        user.setUserPhone("13511112345");
+        userServiceImpl.updateUserById(user);
     }
 
     @Test

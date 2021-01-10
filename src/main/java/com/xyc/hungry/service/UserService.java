@@ -56,7 +56,7 @@ public interface UserService {
      * @Param: [userId, user]
      * @Return: java.lang.Integer
      **/
-    Integer updateUserById(Integer userId,User user);
+    Integer updateUserById(User user);
 
     /*
      * @Description: 批量删除
