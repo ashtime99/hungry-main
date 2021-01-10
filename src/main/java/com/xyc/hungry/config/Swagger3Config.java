@@ -2,6 +2,7 @@ package com.xyc.hungry.config;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -16,6 +17,7 @@ import springfox.documentation.spring.web.plugins.Docket;
  * @author: ashtime99
  * @create: 2021/01/04 10:24
  */
+@Configuration
 public class Swagger3Config {
     @Bean
     public Docket createRestApi() {

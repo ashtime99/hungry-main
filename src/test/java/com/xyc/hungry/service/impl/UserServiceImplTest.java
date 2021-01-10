@@ -24,16 +24,21 @@ class UserServiceImplTest {
 
     @Test
     void userRegister() {
+        User user=new User();
+        user.setUserUsername("201902250107");
+        user.setUserPassword("123456");
+        userServiceImpl.userRegister(user);
     }
 
     @Test
     void selectUserById() {
+        System.out.println(userServiceImpl.selectUserById(9));
     }
 
     @Test
     void selectUserList() {
-        IPage<User> userPage = new Page<>(2, 2);//参数一是当前页，参数二是每页个数
-        List<User> userList=userServiceImpl.selectUserList(null,null);
+        IPage<User> userPage = new Page<>(1, 2);//参数一是当前页，参数二是每页个数
+        List<User> userList=userServiceImpl.selectUserList(userPage,0);
         userList.forEach(System.out::println);
 
     }

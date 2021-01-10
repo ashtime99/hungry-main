@@ -31,17 +31,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer userRegister(User user) {
-        return null;
+        Integer row=userMapper.insert(user);
+        return row;
     }
 
     @Override
     public User selectUserById(Integer userId) {
-        return null;
+        return userMapper.selectUserById(userId,0);
     }
 
     @Override
     public List<User> selectUserList(IPage<User> page, Integer state) {
-        return page.getRecords();
+        //userMapper.selectUserList(page,state);
+        return userMapper.selectUserList(page,state);
     }
 
 

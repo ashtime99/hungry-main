@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="com.xyc.hungry.dao.UserMapper">
+<!--    <select id="selectUserById" resultType="com.xyc.hungry.model.User">-->
+<!--        SELECT * FROM user WHERE user_id=#{userId} AND user_delete=#{deleteState}-->
+<!--    </select>-->
+
+<!--    <select id="selectUserList" resultType="com.xyc.hungry.model.User">-->
+<!--        SELECT * FROM user WHERE user_delete=#{deleteState}-->
+<!--    </select>-->
+</mapper>

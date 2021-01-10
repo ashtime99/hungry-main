@@ -1,9 +1,6 @@
 package com.xyc.hungry.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -40,18 +37,18 @@ public class User {
     @TableField("user_phone") //用户号码
     private String userPhone;
 
-    @TableField("user_state") //用户状态
-    private String userState;
+    @TableField(value ="user_state",fill = FieldFill.INSERT) //用户状态
+    private Integer userState;
 
-    @TableField("user_delete") //用户删除状态
-    private String userDelete;
+    @TableField(value = "user_delete",fill = FieldFill.INSERT) //用户删除状态
+    private Integer userDelete;
 
-    @TableField("user_login_time") //管理员最近登录时间
+    @TableField(value = "user_login_time",fill = FieldFill.INSERT_UPDATE) //用户最近登录时间
     private LocalDateTime userLoginTime;
 
-    @TableField("user_create_time") //用户创建时间
+    @TableField(value = "user_create_time",fill = FieldFill.INSERT) //用户创建时间
     private LocalDateTime userCreateTime;
 
-    @TableField("user_update_time") //用户最近修改时间
+    @TableField(value = "user_update_time",fill = FieldFill.INSERT_UPDATE) //用户最近修改时间
     private LocalDateTime userUpdateTime;
 }
