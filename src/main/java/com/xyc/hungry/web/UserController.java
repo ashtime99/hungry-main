@@ -6,11 +6,9 @@ import com.xyc.hungry.util.Msg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +21,7 @@ import java.util.Map;
  */
 @RestController
 @Api(tags="1-用户处理")
-@RequestMapping("/user")
+@RequestMapping(value = "/user",produces = "application/json; charset=utf-8")
 public class UserController {
 
     @Autowired
@@ -43,6 +41,23 @@ public class UserController {
         userService.updateUserById(user);
         if (user!=null){
             return msg;
+        }else {
+            return Msg.fail();
+        }
+    }
+
+    @ApiOperation("用户注册")
+    @PostMapping("/register")
+    public Msg userRegister(
+            @ApiParam("用户账号")@Param("username") String username,
+            @ApiParam("用户密码")@Param("password") String password){
+        User user=new User();
+        user.setUserUsername(username);
+        user.setUserUsername(password);
+        int row=userService.userRegister(user);
+        Msg msg=new Msg();
+        if (row!=0){
+            return Msg.success();
         }else {
             return Msg.fail();
         }

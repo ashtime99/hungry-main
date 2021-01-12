@@ -7,6 +7,12 @@ spring:
     password: 123456
     url: jdbc:mysql://localhost:3306/hungry?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    suffix: .html
 # 日志配置
 logging:
   level:

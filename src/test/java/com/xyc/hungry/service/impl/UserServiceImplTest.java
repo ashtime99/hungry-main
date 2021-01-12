@@ -19,13 +19,13 @@ class UserServiceImplTest {
 
     @Test
     void userLogin() {
-        System.out.println(userServiceImpl.userLogin("201902250101","123456"));
+        System.out.println(userServiceImpl.userLogin("201902250108","123456"));
     }
 
     @Test
     void userRegister() {
         User user=new User();
-        user.setUserUsername("201902250107");
+        user.setUserUsername("201902250108");
         user.setUserPassword("123456");
         userServiceImpl.userRegister(user);
     }

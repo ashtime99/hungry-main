@@ -32,9 +32,9 @@ public class Swagger3Config {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Swagger3接口文档")
-                .description("ios demo")
-                .contact(new Contact("ashtime99", "github.ashtime99.io","ashtime99@gmail.com"))
+                .title("Hungry")
+                .description("基于JavaEE的校园外卖订餐管理系统设计与实现")
+                .contact(new Contact("ashtime99", "https://github.ashtime99.io","2356530007@qq.com"))
                 .version("1.0")
                 .build();
     }

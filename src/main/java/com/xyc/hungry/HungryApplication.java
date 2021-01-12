@@ -7,7 +7,6 @@ import springfox.documentation.oas.annotations.EnableOpenApi;
 
 @EnableOpenApi
 @SpringBootApplication
-@MapperScan("com.xyc.hungry.dao")
 public class HungryApplication {
 
     public static void main(String[] args) {

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.xyc.hungry.dao.UserMapper;
 import com.xyc.hungry.model.User;
 import com.xyc.hungry.service.UserService;
+import com.xyc.hungry.util.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +26,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User userLogin(String userUsername, String userPassword) {
         QueryWrapper<User> queryWrapper=new QueryWrapper<>();
-        queryWrapper.like("user_username",userUsername).like("user_password",userPassword);
+        queryWrapper.like("user_username",userUsername).like("user_password",MD5Utils.stringToMD5(userPassword));
         return userMapper.selectOne(queryWrapper);
     }
 
     @Override
     public Integer userRegister(User user) {
+        user.setUserPassword(MD5Utils.stringToMD5(user.getUserPassword()));
         Integer row=userMapper.insert(user);
         return row;
     }
