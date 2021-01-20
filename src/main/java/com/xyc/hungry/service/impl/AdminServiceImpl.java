@@ -6,6 +6,9 @@ import com.xyc.hungry.model.Admin;
 import com.xyc.hungry.service.AdminService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,7 +32,7 @@ public class AdminServiceImpl implements AdminService, UserDetailsService {
         queryWrapper.like("admin_username",username);
         Admin admin=adminMapper.selectOne(queryWrapper);
         if (admin==null){
-            throw new UsernameNotFoundException("账户不存在");
+            throw new UsernameNotFoundException("管理员不存在");
         }
         admin.setRoles(adminMapper.getAdminRolesByUid(admin.getAdminId()));
         return admin;

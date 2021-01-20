@@ -24,7 +24,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
 
     //自定义请求字段
     ,request: {
-      tokenName: true //自动携带 token 的字段名（如：access_token）。可设置 false 不携带。
+      tokenName: false //自动携带 token 的字段名（如：access_token）。可设置 false 不携带。
     }
     
     //自定义响应字段
@@ -41,7 +41,7 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
     //扩展的第三方模块
     ,extend: [
       'echarts', //echarts 核心包
-      'echartsTheme', //echarts 主题
+      'echartsTheme' //echarts 主题
     ]
     
     //主题配置
@@ -101,6 +101,24 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
       },{
         header: '#393D49'
         ,alias: 'classic-black-header' //经典黑头
+      },{
+        main: '#50314F'
+        ,logo: '#50314F'
+        ,selected: '#7A4D7B'
+        ,header: '#50314F'
+        ,alias: 'purple-red-header' //紫红头
+      },{
+        main: '#28333E'
+        ,logo: '#28333E'
+        ,selected: '#AA3130'
+        ,header: '#AA3130'
+        ,alias: 'fashion-red-header' //时尚红头
+      },{
+        main: '#28333E'
+        ,logo: '#009688'
+        ,selected: '#009688'
+        ,header: '#009688'
+        ,alias: 'green-header' //墨绿头
       }]
       
       //初始的颜色索引，对应上面的配色方案数组索引

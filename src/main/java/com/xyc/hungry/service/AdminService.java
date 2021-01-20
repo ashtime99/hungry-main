@@ -9,7 +9,7 @@ import com.xyc.hungry.model.User;
  * @author: ash
  * @create: 2021/01/12 16:39
  */
-public interface AdminService {
+public interface AdminService{
 
     /*
      * @Description: 管理员登录

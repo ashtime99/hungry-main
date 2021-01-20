@@ -16,20 +16,20 @@ import java.util.Calendar;
 public class PageController {
 
 
-    @ApiOperation("跳转到主页面")
-    @GetMapping("/adminIndex")
-    public String indexPage()
-    {
-        return "views/index";
-    }
+//    @ApiOperation("跳转到主页面")
+//    @GetMapping("/adminIndex")
+//    public String indexPage()
+//    {
+//        return "views/index";
+//    }
 
-    @ApiOperation("跳转到登录页面")
-    @GetMapping("/adminLogin")
-    public String adminLogin(Model model)
-    {
-        model.addAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
-        return "views/user/login";
-    }
+//    @ApiOperation("跳转到登录页面")
+//    @GetMapping("/adminLogin")
+//    public String adminLogin(Model model)
+//    {
+//        model.addAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
+//        return "views/user/login";
+//    }
 
     @ApiOperation("跳转到注册页面")
     @GetMapping("/adminReg")

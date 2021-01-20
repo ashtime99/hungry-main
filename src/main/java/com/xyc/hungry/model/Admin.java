@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,8 +30,8 @@ public class Admin implements UserDetails {
     @TableId("admin_id") //管理员id
     private Integer adminId;
 
-    @TableField("role_id") //管理员权限id
-    private Integer roleId;
+//    @TableField("role_id") //管理员权限id
+//    private Integer roleId;
 
     @TableField("shop_id") //商铺id
     private Integer shopId;
@@ -52,12 +54,15 @@ public class Admin implements UserDetails {
     @TableField("admin_update_time") //管理员最近修改时间
     private LocalDateTime adminUpdateTime;
 
+    @Getter(value = AccessLevel.NONE)
     @TableField("enabled")
     private Boolean enabled;
 
+    @Getter(value = AccessLevel.NONE)
     @TableField("locked")
     private Boolean locked;
 
+    @Getter(value = AccessLevel.NONE)
     @TableField(exist = false)
     private List<Role>roles;
 
@@ -83,7 +88,7 @@ public class Admin implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override

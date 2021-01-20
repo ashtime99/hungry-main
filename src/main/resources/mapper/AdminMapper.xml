@@ -2,6 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 <mapper namespace="com.xyc.hungry.dao.AdminMapper">
     <select id="getAdminRolesByUid" resultType="com.xyc.hungry.model.Role">
-        SELECT * FROM role r,admin ad WHERE r.role_id=ad.role_id AND ad.admin_id=#{admin_id}
+        SELECT * FROM role r,admin_role ad WHERE r.role_id=ad.role_id AND ad.admin_id=#{admin_id}
     </select>
 </mapper>
