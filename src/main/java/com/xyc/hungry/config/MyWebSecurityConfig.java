@@ -63,16 +63,16 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/layuiadmin/**").permitAll()
-                .antMatchers("/admin/**").hasRole("admin")
+                .antMatchers("/backstage/**").hasRole("admin")
                 .antMatchers("/user/**").hasRole("user")
                 .anyRequest().authenticated()
                 .and()
                 .headers().frameOptions().disable()
                 .and()
                 .formLogin()
-                .loginPage("/admin/login").permitAll()
+                .loginPage("/backstage/login").permitAll()
                 .usernameParameter("username").passwordParameter("password")
-                .defaultSuccessUrl("/admin/index")
+                .defaultSuccessUrl("/backstage/index")
                 .successHandler(new AuthenticationSuccessHandler() {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {

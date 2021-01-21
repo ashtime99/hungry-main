@@ -94,25 +94,19 @@
 
 <script th:src="@{/layuiadmin/layui/layui.js}"></script>
 <script>
-    // layui.config({
-    //   base: '../../layuiadmin/' //静态资源所在路径
-    // }).extend({
-    //   index: 'lib/index' //主入口模块
-    // }).use(['index', 'user'], function(){
-    //   var $ = layui.$
-    //   ,setter = layui.setter
-    //   ,admin = layui.admin
-    //   ,form = layui.form
-    //   ,router = layui.router()
-    //   ,search = router.search;
-
-    layui.use(['form'], function () {
-        var $ = layui.$
-            , setter = layui.setter
-            , admin = layui.admin
-            , form = layui.form
-            , router = layui.router()
-            , search = router.search;
+    var baseurl = '[[@{/layuiadmin/}]]';
+    var indexurl = '[[@{lib/index}]]';
+    layui.config({
+      base: baseurl //静态资源所在路径
+    }).extend({
+      index: indexurl //主入口模块
+    }).use(['index', 'user'], function(){
+      var $ = layui.$
+      ,setter = layui.setter
+      ,admin = layui.admin
+      ,form = layui.form
+      ,router = layui.router()
+      ,search = router.search;
 
         form.render();
 
@@ -121,7 +115,7 @@
             $.ajax({
                 method: "POST",
                 data: obj.field,
-                url: "/admin/login",
+                url: "/backstage/login",
                 success: function (res) {
                     console.log(res);
                     console.log("请求成功", res);
@@ -131,9 +125,8 @@
                         , icon: 1
                         , time: 1000
                     }, function () {
-                        location.href = '/admin/index'; //后台主页
+                        location.href = '/backstage/index'; //后台主页
                     });
-
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     console.log("失败" + XMLHttpRequest.status + ":" + textStatus + ":" + errorThrown);
@@ -142,8 +135,9 @@
 
             //请求登入接口
             // admin.req({
-            //     url: 'admin/login' //实际使用请改成服务端真实接口
+            //     url: '/backstage/login' //实际使用请改成服务端真实接口
             //     , data: obj.field
+            //     ,method: "POST"
             //     , done: function (res) {
             //
             //         //请求成功后，写入 access_token
@@ -158,7 +152,7 @@
             //             , icon: 1
             //             , time: 1000
             //         }, function () {
-            //             location.href = '../'; //后台主页
+            //             location.href = '/backstage/index';
             //         });
             //     }
             // });
@@ -167,10 +161,10 @@
 
 
         //实际使用时记得删除该代码
-        layer.msg('为了方便演示，用户名密码可随意输入', {
-            offset: '15px'
-            , icon: 1
-        });
+        // layer.msg('为了方便演示，用户名密码可随意输入', {
+        //     offset: '15px'
+        //     , icon: 1
+        // });
 
     });
 </script>

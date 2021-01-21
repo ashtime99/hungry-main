@@ -1,7 +1,9 @@
 package com.xyc.hungry.web.admin;
 
 import com.xyc.hungry.model.Admin;
+import com.xyc.hungry.model.Role;
 import com.xyc.hungry.service.AdminService;
+import com.xyc.hungry.service.RoleService;
 import com.xyc.hungry.util.MD5Utils;
 import com.xyc.hungry.util.Msg;
 import io.swagger.annotations.Api;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,42 +34,22 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @ApiOperation("跳转到管理员登录页面")
-    @GetMapping("/login")
-    public String adminToLogin(Model model)
-    {
-        model.addAttribute("currentYear", Calendar.getInstance().get(Calendar.YEAR));
-        return "views/user/login";
+    @Autowired
+    private RoleService roleService;
+
+    @ApiOperation("显示所有权限")
+    @GetMapping("/showRoleList")
+    public Msg showRoleList(){
+        Msg msg=new Msg();
+        List<Role> roleList=roleService.selectAllRole();
+        Map<String,Object> map=new HashMap<>();
+        map.put("roleList",roleList);
+        map.put("total",5);
+        msg.setData(map);
+        msg.setCode(0);
+        msg.setMsg("访问成功");
+        return msg;
     }
 
-    @ApiOperation("跳转到控制台主页面")
-    @GetMapping("/index")
-    public String adminToIndex()
-    {
-        return "views/index";
-    }
-
-
-
-//    @ApiOperation("管理员登录")
-//    @PostMapping("/login")
-//    public Msg loginAdmin(@ApiParam("管理员账号")@RequestParam("username") String username,
-//                          @ApiParam("管理员密码")@RequestParam("password") String password) {
-//        Msg msg=new Msg();
-//        Map<String,Object> map=new HashMap<>();
-//        Admin admin=adminService.findAdminByUserNameAndPassword(username, MD5Utils.stringToMD5(password));
-//        if(admin!=null)
-//        {
-//            //session.setAttribute("admin",admin);
-//            map.put("access_token",MD5Utils.stringToMD5(admin.getAdminId()+admin.getAdminUsername()+System.currentTimeMillis()));
-//            map.put("AdminUsername",admin.getAdminUsername());
-//            msg.setData(map);
-//            System.out.println("用户 "+username+" 成功登陆！");
-//            System.out.println("用户凭证access_token: "+map.get("access_token"));
-//            System.out.println(msg);
-//            return msg;
-//        }
-//        return Msg.success();
-//    }
 
 }
