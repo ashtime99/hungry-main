@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ash.server.mapper.OrderDetailedMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ash.server.pojo.OrderDetailed">
+        <id column="order_detailed_id" property="orderDetailedId" />
+        <result column="order_id" property="orderId" />
+        <result column="commodity_id" property="commodityId" />
+        <result column="commodity_category_id" property="commodityCategoryId" />
+        <result column="order_detailed_num" property="orderDetailedNum" />
+        <result column="order_detailed_price" property="orderDetailedPrice" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        order_detailed_id, order_id, commodity_id, commodity_category_id, order_detailed_num, order_detailed_price
+    </sql>
+
+</mapper>

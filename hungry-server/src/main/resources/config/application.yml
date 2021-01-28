@@ -1,0 +1,56 @@
+server:
+  # 服务端口
+  port: 8080
+
+spring:
+  # 数据源配置
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/ash_hungry?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      # 连接池名
+      pool-name: MyHikariCP
+      # 最小空闲连接数
+      minimum-idle: 5
+      # 空闲连接存活最大时间，默认600000（10分钟）
+      idle-timeout: 180000
+      # 连接池最大连接数，默认是10
+      maximum-pool-size: 10
+      # 此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      auto-commit: true
+      # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      max-lifetime: 1800000
+      # 数据库连接超时时间,默认30秒，即30000
+      connection-timeout: 30000
+      # 测试连接是否可用的查询语句
+      connection-test-query: SELECT 1
+
+# mybatis-plus配置
+mybatis-plus:
+  # 配置Mapper映射文件
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  # 配置Mybatis数据返回类型别名（默认别名是类名）
+  type-aliases-package: com.ash.server.pojo
+  configuration:
+    #自动驼峰命名
+    map-underscore-to-camel-case: true
+
+
+# SQL打印
+logging:
+  level:
+    com.ash.server.mapper: trace
+
+jwt:
+  #JWT存储的请求头
+  tokenHeader: Authorization
+  #JWT加解密使用的密钥
+  secret: yeb-secret
+  #JWT的超期限时间(6日*6回*24）
+  expiration: 604800
+  #JWT负载中拿到开头
+  tokenHead: Bearer
+
+
