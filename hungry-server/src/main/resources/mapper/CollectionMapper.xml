@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ash.server.mapper.CollectionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ash.server.pojo.Collections">
+        <id column="collection_id" property="collectionId" />
+        <result column="user_id" property="userId" />
+        <result column="commodity_id" property="commodityId" />
+        <result column="collection_delete" property="collectionDelete" />
+        <result column="collection_create_time" property="collectionCreateTime" />
+        <result column="collection_update_time" property="collectionUpdateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        collection_id, user_id, commodity_id, collection_delete, collection_create_time, collection_update_time
+    </sql>
+
+</mapper>

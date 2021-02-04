@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ash.server.mapper.MenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ash.server.pojo.Menu">
+        <id column="menu_id" property="menuId" />
+        <result column="menu_url" property="menuUrl" />
+        <result column="menu_path" property="menuPath" />
+        <result column="menu_name" property="menuName" />
+        <result column="menu_component" property="menuComponent" />
+        <result column="menu_icon" property="menuIcon" />
+        <result column="menu_enable" property="menuEnable" />
+        <result column="menu_locked" property="menuLocked" />
+        <result column="menu_parent_id" property="menuParentId" />
+    </resultMap>
+    
+    <resultMap id="Menus" type="com.ash.server.pojo.Menu" extends="BaseResultMap">
+        <collection property="children" ofType="com.ash.server.pojo.Menu">
+            <id column="menu_id2" property="menuId" />
+            <result column="menu_url2" property="menuUrl" />
+            <result column="menu_path2" property="menuPath" />
+            <result column="menu_name2" property="menuName" />
+            <result column="menu_component2" property="menuComponent" />
+            <result column="menu_icon2" property="menuIcon" />
+            <result column="menu_enable2" property="menuEnable" />
+            <result column="menu_locked2" property="menuLocked" />
+            <result column="menu_parent_id2" property="menuParentId" />
+        </collection>
+    </resultMap>
+
+    <resultMap id="MenusWithRole" type="com.ash.server.pojo.Menu" extends="BaseResultMap">
+        <collection property="roles" ofType="com.ash.server.pojo.Role">
+            <id column="role_id" property="roleId" />
+            <result column="role_name" property="roleName" />
+            <result column="role_name_zh" property="roleNameZh" />
+        </collection>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        menu_id, menu_url,menu_path,menu_name,menu_component,menu_icon,menu_enable,menu_locked,menu_parent_id
+    </sql>
+
+    <!-- 通过管理员id查询菜单列表 -->
+    <select id="getMenusByAdminId" resultMap="Menus">
+        SELECT DISTINCT
+            m1.*,
+            m2.menu_url AS `menu_url2`,
+            m2.menu_path AS `menu_path2`,
+            m2.menu_name AS `menu_name2`,
+            m2.menu_component AS `menu_component2`,
+            m2.menu_icon AS `menu_icon2`,
+            m2.menu_enable AS `menu_enable2`,
+            m2.menu_locked AS `menu_locked2`
+        FROM
+            h_menu m1,
+            h_menu m2,
+            h_admin_role ar,
+            h_menu_role mr
+        WHERE
+            m1.menu_id = m2.menu_parent_id
+          AND m1.menu_id = mr.menu_id
+          AND mr.menu_role_id = ar.role_id
+          AND ar.admin_id = #{adminId}
+          AND m2.menu_enable = TRUE
+          AND m1.menu_enable = TRUE
+        ORDER BY
+            m2.menu_id
+    </select>
+
+    <!-- 根据角色获取菜单列表 -->
+    <select id="getMenusWithRole" resultMap="MenusWithRole">
+        SELECT
+            m.*,
+            r.role_id AS role_id,
+            r.role_name AS role_name,
+            r.role_name_zh AS role_name_zh
+        FROM
+            h_menu m,
+            h_menu_role mr,
+            h_role r
+        WHERE
+            m.menu_id=mr.menu_id
+          AND
+            r.role_id=mr.menu_role_id
+        ORDER BY
+            m.menu_id
+    </select>
+
+
+</mapper>

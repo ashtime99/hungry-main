@@ -23,7 +23,7 @@ public interface IAdminService extends IService<Admin> {
      * @Author ash
      * @Date: 23:00 2021/1/26
      */ 
-    RespBean login(String username, String password, HttpServletRequest request);
+    RespBean login(String username, String password,String code, HttpServletRequest request);
 
     /** 
      * @Description: 根据用户名获取用户
@@ -33,4 +33,5 @@ public interface IAdminService extends IService<Admin> {
      * @Date: 16:38 2021/1/27
      */ 
     Admin getAdminByUsername(String username);
+
 }

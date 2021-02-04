@@ -1,5 +1,7 @@
 package com.ash.server.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -23,6 +25,7 @@ public class OrderStatus implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "order_status_id", type = IdType.AUTO)
     private Integer orderStatusId;
 
     private String orderStatusName;

@@ -1,5 +1,7 @@
 package com.ash.server.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,6 +28,7 @@ public class Shoppingcart implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "购物车id")
+    @TableId(value = "shoppingcart_id", type = IdType.AUTO)
     private Integer shoppingcartId;
 
     @ApiModelProperty(value = "用户id")

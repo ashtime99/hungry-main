@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ash.server.mapper.OrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ash.server.pojo.Order">
+        <id column="order_id" property="orderId" />
+        <result column="order_status_id" property="orderStatusId" />
+        <result column="user_id" property="userId" />
+        <result column="address_id" property="addressId" />
+        <result column="operator_id" property="operatorId" />
+        <result column="order_delivery" property="orderDelivery" />
+        <result column="driver_id" property="driverId" />
+        <result column="order_total" property="orderTotal" />
+        <result column="order_create_time" property="orderCreateTime" />
+        <result column="order_update_time" property="orderUpdateTime" />
+        <result column="order_cancel_time" property="orderCancelTime" />
+        <result column="order_paid_time" property="orderPaidTime" />
+        <result column="order_received_time" property="orderReceivedTime" />
+        <result column="order_delivery_time" property="orderDeliveryTime" />
+        <result column="order_completed_time" property="orderCompletedTime" />
+        <result column="order_dining_style" property="orderDiningStyle" />
+        <result column="order_remarks" property="orderRemarks" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        order_id, order_status_id, user_id, address_id, operator_id, order_delivery, driver_id, order_total, order_create_time, order_update_time, order_cancel_time, order_paid_time, order_received_time, order_delivery_time, order_completed_time, order_dining_style, order_remarks
+    </sql>
+
+</mapper>

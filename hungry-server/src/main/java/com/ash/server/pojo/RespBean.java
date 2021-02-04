@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RespBean {
+
     private long code;
     private String message;
     private Object obj;

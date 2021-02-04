@@ -1,5 +1,6 @@
 package com.ash.server.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,6 +27,7 @@ public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "订单id")
+    @TableId(value = "order_id")
     private Long orderId;
 
     @ApiModelProperty(value = "订单状态")

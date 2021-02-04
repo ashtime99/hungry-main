@@ -1,5 +1,8 @@
 package com.ash.server.config.security;
 
+import com.ash.server.config.security.component.JwtAuthenticationTokenFilter;
+import com.ash.server.config.security.component.RestAuthorizationEntryPoint;
+import com.ash.server.config.security.component.RestfulAccessDeniedHandler;
 import com.ash.server.pojo.Admin;
 import com.ash.server.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity webSecurity) throws Exception {
         webSecurity.ignoring().antMatchers(
                 "/login", "/logout", "/css/**", "/js/**", "/index.html", "favicon.ico",
-                "/doc.html", "/swagger-resources/**", "/v2/api-docs/**", "/webjars/**"
+                "/doc.html", "/swagger-resources/**", "/v2/api-docs/**", "/webjars/**",
+                "/captcha"
         );
     }
 

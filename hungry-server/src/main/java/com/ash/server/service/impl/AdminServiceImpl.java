@@ -1,6 +1,6 @@
 package com.ash.server.service.impl;
 
-import com.ash.server.config.security.JwtTokenUtil;
+import com.ash.server.config.security.component.JwtTokenUtil;
 import com.ash.server.mapper.AdminMapper;
 import com.ash.server.pojo.Admin;
 import com.ash.server.pojo.RespBean;
@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -50,7 +51,11 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
      * @Date: 22:47 2021/1/26
      */
     @Override
-    public RespBean login(String username, String password, HttpServletRequest request) {
+    public RespBean login(String username, String password,String code,HttpServletRequest request) {
+        String captcha = (String) request.getSession().getAttribute("captcha");
+        if (StringUtils.isEmpty(code)||!captcha.equalsIgnoreCase(code)){
+            return RespBean.error("验证码输入错误，请重新输入!");
+        }
         //登录
         UserDetails userDetails=userDetailsService.loadUserByUsername(username);
         if (null==userDetails||!passwordEncoder.matches(password,userDetails.getPassword())){
@@ -83,4 +88,5 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     public Admin getAdminByUsername(String adminUsername) {
         return adminMapper.selectOne(new QueryWrapper<Admin>().eq("admin_username",adminUsername).eq("admin_enabled",true));
     }
+
 }

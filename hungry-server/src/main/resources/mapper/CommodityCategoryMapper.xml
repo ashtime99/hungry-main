@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ash.server.mapper.CommodityCategoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ash.server.pojo.CommodityCategory">
+        <id column="commodity_category_id" property="commodityCategoryId" />
+        <result column="commodity_id" property="commodityId" />
+        <result column="commodity_category_parent_id" property="commodityCategoryParentId" />
+        <result column="commodity_category_name" property="commodityCategoryName" />
+        <result column="commodity_category_delete" property="commodityCategoryDelete" />
+        <result column="commodity_category_create_time" property="commodityCategoryCreateTime" />
+        <result column="commodity_category_update_time" property="commodityCategoryUpdateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        commodity_category_id, commodity_id, commodity_category_parent_id, commodity_category_name, commodity_category_delete, commodity_category_create_time, commodity_category_update_time
+    </sql>
+
+</mapper>
