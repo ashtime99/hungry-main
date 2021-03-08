@@ -1,6 +1,7 @@
 package com.ash.server.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -8,11 +9,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -40,6 +44,9 @@ public class Admin implements Serializable, UserDetails {
     @ApiModelProperty(value = "管理员密码")
     private String adminPassword;
 
+    @ApiModelProperty(value = "管理员头像")
+    private String adminFace;
+
     @ApiModelProperty(value = "管理员联系号码")
     private String adminPhone;
 
@@ -58,10 +65,18 @@ public class Admin implements Serializable, UserDetails {
     @ApiModelProperty(value = "管理员是否被冻结")
     private Boolean adminLocked;
 
+    @ApiModelProperty(value = "角色列表")
+    @TableField(exist = false)
+    private List<Role> roles;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<SimpleGrantedAuthority> authorities=roles
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
+                .collect(Collectors.toList());
+        return authorities;
     }
 
     @Override

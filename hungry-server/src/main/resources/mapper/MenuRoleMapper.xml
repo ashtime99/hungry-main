@@ -9,9 +9,13 @@
         <result column="role_id" property="roleId" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        menu_role_id, menu_id, role_id
-    </sql>
+    <!-- 更新角色菜单 -->
+    <insert id="insertRecord">
+        insert into h_menu_role(menu_id,role_id) values
+        <!-- 传入的 ids 数组，用逗号分隔 ,-->
+        <foreach collection="menuIds" item="menuId" separator=",">
+            (#{menuId},#{roleId})
+        </foreach>
+    </insert>
 
 </mapper>

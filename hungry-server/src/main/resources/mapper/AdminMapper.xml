@@ -7,6 +7,7 @@
         <id column="admin_id" property="adminId" />
         <result column="admin_username" property="adminUsername" />
         <result column="admin_password" property="adminPassword" />
+        <result column="admin_face" property="adminFace" />
         <result column="admin_phone" property="adminPhone" />
         <result column="admin_create_time" property="adminCreateTime" />
         <result column="admin_update_time" property="adminUpdateTime" />
@@ -17,7 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        admin_id, admin_username, admin_password, admin_phone, admin_create_time, admin_update_time, admin_login_time, admin_enabled, admin_locked
+        admin_id, admin_username, admin_password,admin_face, admin_phone, admin_create_time, admin_update_time, admin_login_time, admin_enabled, admin_locked
     </sql>
 
 

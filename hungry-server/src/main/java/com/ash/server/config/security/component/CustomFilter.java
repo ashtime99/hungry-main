@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * @Description 权限控制，根据请求url分析请求所需的角色
+ * @Description 权限控制，判断请求url，分析请求所需的角色
  * @Author ash
  * @Date 2021/2/4 16:54
  * @Version 1.0

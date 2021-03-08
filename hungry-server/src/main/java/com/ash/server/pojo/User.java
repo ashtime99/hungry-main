@@ -3,6 +3,7 @@ package com.ash.server.pojo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -12,12 +13,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
- * 
- * </p>
- *
- * @author ash
- * @since 2021-01-26
+ * @Description: User用户
+ * @Author ash
+ * @Date 2021/2/10 15:22
+ * @Version 1.0
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -31,8 +30,8 @@ public class User implements Serializable {
     @TableId(value = "user_id", type = IdType.AUTO)
     private Integer userId;
 
-    @ApiModelProperty(value = "图片id")
-    private Integer imageId;
+//    @ApiModelProperty(value = "图片id")
+//    private Integer imageId;
 
     @ApiModelProperty(value = "用户账户")
     private String userUsername;
@@ -56,12 +55,15 @@ public class User implements Serializable {
     private Boolean userEnabled;
 
     @ApiModelProperty(value = "用户最近登录时间")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime userLoginTime;
 
     @ApiModelProperty(value = "用户创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime userCreateTime;
 
     @ApiModelProperty(value = "用户修改时间")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime userUpdateTime;
 
 

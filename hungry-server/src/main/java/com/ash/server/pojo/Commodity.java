@@ -35,8 +35,8 @@ public class Commodity implements Serializable {
     @ApiModelProperty(value = "商品分类id")
     private String commodityCategoryId;
 
-    @ApiModelProperty(value = "图片id")
-    private Integer imageId;
+//    @ApiModelProperty(value = "图片id")
+//    private Integer imageId;
 
     @ApiModelProperty(value = "商品名称")
     private String commodityName;

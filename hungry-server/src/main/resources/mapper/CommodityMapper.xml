@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="com.ash.server.pojo.Commodity">
         <id column="commodity_id" property="commodityId" />
         <result column="commodity_category_id" property="commodityCategoryId" />
-        <result column="image_id" property="imageId" />
+<!--        <result column="image_id" property="imageId" />-->
         <result column="commodity_name" property="commodityName" />
         <result column="commodity_stock" property="commodityStock" />
         <result column="commodity_price" property="commodityPrice" />
@@ -20,7 +20,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        commodity_id, commodity_category_id, image_id, commodity_name, commodity_stock, commodity_price, commodity_discount, commodity_describe, commodity_locked, commodity_enable, commodity_create_time, commodity_update_time
+        commodity_id, commodity_category_id,commodity_name, commodity_stock, commodity_price, commodity_discount, commodity_describe, commodity_locked, commodity_enable, commodity_create_time, commodity_update_time
     </sql>
 
 </mapper>

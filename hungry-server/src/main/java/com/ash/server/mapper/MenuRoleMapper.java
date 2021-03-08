@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface MenuRoleMapper extends BaseMapper<MenuRole> {
 
+    Integer insertRecord(Integer roleId, Integer[] menuIds);
 }

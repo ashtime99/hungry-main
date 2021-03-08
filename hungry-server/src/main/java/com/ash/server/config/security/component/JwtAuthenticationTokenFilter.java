@@ -7,7 +7,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -22,7 +21,7 @@ import java.io.IOException;
  * @Date 2021/1/27 16:10
  * @Version 1.0
  **/
-@Component
+
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Value("${jwt.tokenHeader}")

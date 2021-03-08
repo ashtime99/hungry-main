@@ -33,6 +33,7 @@ public class Role implements Serializable {
     @ApiModelProperty(value = "管理员权限名")
     private String roleName;
 
+    @ApiModelProperty(value = "管理员权限中文名")
     private String roleNameZh;
 
 

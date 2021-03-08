@@ -17,5 +17,15 @@ public class HelloController {
                 return "hello";
         }
 
+        @GetMapping("/order/beReceived/hello")
+        public String hello2(){
+                return "操作员：/order/beReceived/hello";
+        }
+
+        @GetMapping("/order/beDelivered/hello")
+        public String hello3(){
+                return "配送员：/order/beDelivered/hello";
+        }
+
 }
 

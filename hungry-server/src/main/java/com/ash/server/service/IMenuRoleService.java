@@ -1,6 +1,7 @@
 package com.ash.server.service;
 
 import com.ash.server.pojo.MenuRole;
+import com.ash.server.pojo.RespBean;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IMenuRoleService extends IService<MenuRole> {
 
+    RespBean updateMenuRole(Integer roleId, Integer[] menuIds);
 }

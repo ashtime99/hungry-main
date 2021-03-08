@@ -32,4 +32,13 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @Date: 16:36 2021/2/4
      */ 
     List<Menu> getMenusWithRole();
+
+    /** 
+     * @Description: 查询所有菜单 
+     * @Param: [] 
+     * @Return: java.util.List<com.ash.server.pojo.Menu> 
+     * @Author ash
+     * @Date: 17:12 2021/3/5
+     */ 
+    List<Menu> getAllMenus();
 }

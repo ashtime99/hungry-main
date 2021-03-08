@@ -2,8 +2,10 @@ package com.ash.server.service.impl;
 
 import com.ash.server.config.security.component.JwtTokenUtil;
 import com.ash.server.mapper.AdminMapper;
+import com.ash.server.mapper.RoleMapper;
 import com.ash.server.pojo.Admin;
 import com.ash.server.pojo.RespBean;
+import com.ash.server.pojo.Role;
 import com.ash.server.service.IAdminService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -19,6 +21,7 @@ import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,6 +37,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
 
     @Autowired
     private AdminMapper adminMapper;
+    @Autowired
+    private RoleMapper roleMapper;
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
@@ -87,6 +92,18 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     @Override
     public Admin getAdminByUsername(String adminUsername) {
         return adminMapper.selectOne(new QueryWrapper<Admin>().eq("admin_username",adminUsername).eq("admin_enabled",true));
+    }
+
+    /** 
+     * @Description: 根据用户id查询角色列表 
+     * @Param: [adminId] 
+     * @Return: java.util.List<com.ash.server.pojo.Role> 
+     * @Author ash
+     * @Date: 17:25 2021/2/5
+     */ 
+    @Override
+    public List<Role> getRoles(Integer adminId) {
+        return roleMapper.getRoles(adminId);
     }
 
 }

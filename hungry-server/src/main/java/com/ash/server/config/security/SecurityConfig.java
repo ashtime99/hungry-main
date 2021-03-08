@@ -1,13 +1,12 @@
 package com.ash.server.config.security;
 
-import com.ash.server.config.security.component.JwtAuthenticationTokenFilter;
-import com.ash.server.config.security.component.RestAuthorizationEntryPoint;
-import com.ash.server.config.security.component.RestfulAccessDeniedHandler;
+import com.ash.server.config.security.component.*;
 import com.ash.server.pojo.Admin;
 import com.ash.server.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -15,8 +14,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -35,6 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private RestAuthorizationEntryPoint restAuthorizationEntryPoint;
     @Autowired
     private RestfulAccessDeniedHandler restfulAccessDeniedHandler;
+    @Autowired
+    private CustomFilter customFilter;
+    @Autowired
+    private CustomUrlDecisionManager customUrlDecisionManager;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -58,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         webSecurity.ignoring().antMatchers(
                 "/login", "/logout", "/css/**", "/js/**", "/index.html", "favicon.ico",
                 "/doc.html", "/swagger-resources/**", "/v2/api-docs/**", "/webjars/**",
-                "/captcha"
+                "/captcha","/images/**"
         );
     }
 
@@ -73,10 +78,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //所有请求都要认证
-                .anyRequest().authenticated()
+                .anyRequest()
+                .authenticated()
+                //动态权限配置
+                .withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+                    @Override
+                    public <O extends FilterSecurityInterceptor> O postProcess(O o) {
+                        o.setAccessDecisionManager(customUrlDecisionManager);
+                        o.setSecurityMetadataSource(customFilter);
+                        return o;
+                    }
+                })
                 .and()
                 //禁用缓存
-                .headers().cacheControl();
+                .headers()
+                .cacheControl();
         //添加JWT 登录授权过滤器
         http.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         //添加自定义未授权和未登录结果返回
@@ -93,9 +109,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return username -> {
             Admin admin = adminService.getAdminByUsername(username);
             if (null != admin) {
+                admin.setRoles(adminService.getRoles(admin.getAdminId()));
                 return admin;
             }
-            return null;
+            throw new UsernameNotFoundException("用户名或密码不正确");
         };
     }
 }

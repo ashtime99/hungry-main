@@ -37,14 +37,22 @@
         </collection>
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        menu_id, menu_url,menu_path,menu_name,menu_component,menu_icon,menu_enable,menu_locked,menu_parent_id
-    </sql>
+    <resultMap id="MenusWithChildren" type="com.ash.server.pojo.Menu" extends="BaseResultMap">
+        <id column="menu_id1" property="menuId" />
+        <result column="menu_name1" property="menuName" />
+        <collection property="children" ofType="com.ash.server.pojo.Menu">
+            <id column="menu_id2" property="menuId" />
+            <result column="menu_name2" property="menuName" />
+            <collection property="children" ofType="com.ash.server.pojo.Menu">
+                <id column="menu_id3" property="menuId" />
+                <result column="menu_name3" property="menuName" />
+            </collection>
+        </collection>
+    </resultMap>
 
     <!-- 通过管理员id查询菜单列表 -->
     <select id="getMenusByAdminId" resultMap="Menus">
-        SELECT DISTINCT
+        SELECT
             m1.*,
             m2.menu_url AS `menu_url2`,
             m2.menu_path AS `menu_path2`,
@@ -61,7 +69,7 @@
         WHERE
             m1.menu_id = m2.menu_parent_id
           AND m1.menu_id = mr.menu_id
-          AND mr.menu_role_id = ar.role_id
+          AND mr.role_id = ar.role_id
           AND ar.admin_id = #{adminId}
           AND m2.menu_enable = TRUE
           AND m1.menu_enable = TRUE
@@ -83,9 +91,28 @@
         WHERE
             m.menu_id=mr.menu_id
           AND
-            r.role_id=mr.menu_role_id
+            r.role_id=mr.role_id
         ORDER BY
             m.menu_id
+    </select>
+    <select id="getAllMenus" resultMap="MenusWithChildren">
+        SELECT
+            m1.menu_id AS menu_id1,
+            m1.menu_name AS menu_name1,
+            m2.menu_id AS menu_id2,
+            m2.menu_name AS menu_name2,
+            m3.menu_id AS menu_id3,
+            m3.menu_name AS menu_name3
+        FROM
+            h_menu m1,
+            h_menu m2,
+            h_menu m3
+        WHERE
+            m1.menu_id = m2.menu_parent_id
+          AND
+            m2.menu_id = m3.menu_parent_id
+          AND
+            m3.menu_enable=TRUE
     </select>
 
 

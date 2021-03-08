@@ -2,9 +2,11 @@ package com.ash.server.service;
 
 import com.ash.server.pojo.Admin;
 import com.ash.server.pojo.RespBean;
+import com.ash.server.pojo.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * <p>
@@ -34,4 +36,11 @@ public interface IAdminService extends IService<Admin> {
      */ 
     Admin getAdminByUsername(String username);
 
+    /**
+     * @Description: 根据用户id查询角色列表
+     * @Author ash
+     * @Date 2021/2/5 17:22
+     * @Version 1.0
+     */
+    List<Role>getRoles(Integer adminId);
 }
