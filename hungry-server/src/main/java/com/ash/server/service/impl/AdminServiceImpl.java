@@ -1,9 +1,12 @@
 package com.ash.server.service.impl;
 
+import com.ash.server.AdminUtils;
 import com.ash.server.config.security.component.JwtTokenUtil;
 import com.ash.server.mapper.AdminMapper;
+import com.ash.server.mapper.AdminRoleMapper;
 import com.ash.server.mapper.RoleMapper;
 import com.ash.server.pojo.Admin;
+import com.ash.server.pojo.AdminRole;
 import com.ash.server.pojo.RespBean;
 import com.ash.server.pojo.Role;
 import com.ash.server.service.IAdminService;
@@ -17,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +43,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     private AdminMapper adminMapper;
     @Autowired
     private RoleMapper roleMapper;
+    @Autowired
+    private AdminRoleMapper adminRoleMapper;
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
@@ -106,4 +112,34 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         return roleMapper.getRoles(adminId);
     }
 
+    /** 
+     * @Description: 获取所有操作员
+     * @Param: [keywords] 
+     * @Return: java.util.List<com.ash.server.pojo.Admin> 
+     * @Author ash
+     * @Date: 13:22 2021/3/11
+     */ 
+    @Override
+    public List<Admin> getAllAdmins(String keywords) {
+        return adminMapper.getAllAdmin(AdminUtils.getCurrentAdmin().getAdminId(),keywords);
+    }
+
+    /**
+     * @Description: 更新操作员角色
+     * @Param: [adminId, roleIds]
+     * @Return: com.ash.server.pojo.RespBean
+     * @Author ash
+     * @Date: 17:50 2021/3/11
+     */
+    @Override
+    @Transactional
+    public RespBean updateAdminRole(Integer adminId, Integer[] roleIds) {
+        adminRoleMapper.delete(new QueryWrapper<AdminRole>().eq("admin_id",adminId));
+        Integer result=adminRoleMapper.addAdminRole(adminId,roleIds);
+        if (roleIds.length==result){
+            return RespBean.success("更新成功!");
+        }else{
+            return RespBean.error("更新失败！");
+        }
+    }
 }

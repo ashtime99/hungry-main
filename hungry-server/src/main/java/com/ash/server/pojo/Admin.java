@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -51,12 +52,15 @@ public class Admin implements Serializable, UserDetails {
     private String adminPhone;
 
     @ApiModelProperty(value = "管理员创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime adminCreateTime;
 
     @ApiModelProperty(value = "管理员最近修改时间")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime adminUpdateTime;
 
     @ApiModelProperty(value = "管理员最近登录时间")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime adminLoginTime;
 
     @ApiModelProperty(value = "管理员是否被删除")

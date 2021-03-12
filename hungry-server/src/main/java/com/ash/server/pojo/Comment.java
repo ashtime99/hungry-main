@@ -3,6 +3,7 @@ package com.ash.server.pojo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -50,9 +51,11 @@ public class Comment implements Serializable {
     private Boolean commentDelete;
 
     @ApiModelProperty(value = "评价创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime commentCreateTime;
 
     @ApiModelProperty(value = "评价最近修改时间")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime commentUpdateTime;
 
 

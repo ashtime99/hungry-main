@@ -43,4 +43,22 @@ public interface IAdminService extends IService<Admin> {
      * @Version 1.0
      */
     List<Role>getRoles(Integer adminId);
+
+    /** 
+     * @Description: 获取所有操作员
+     * @Param: [keywords] 
+     * @Return: java.util.List<com.ash.server.pojo.Admin> 
+     * @Author ash
+     * @Date: 13:22 2021/3/11
+     */ 
+    List<Admin> getAllAdmins(String keywords);
+
+    /**
+     * @Description: 更新操作员角色
+     * @Param: [adminId, roleIds]
+     * @Return: com.ash.server.pojo.RespBean
+     * @Author ash
+     * @Date: 17:40 2021/3/11
+     */
+    RespBean updateAdminRole(Integer adminId, Integer[] roleIds);
 }

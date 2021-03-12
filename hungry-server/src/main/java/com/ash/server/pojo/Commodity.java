@@ -3,6 +3,7 @@ package com.ash.server.pojo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -60,9 +61,11 @@ public class Commodity implements Serializable {
     private Boolean commodityEnable;
 
     @ApiModelProperty(value = "商品创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime commodityCreateTime;
 
     @ApiModelProperty(value = "商品最近修改时间")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime commodityUpdateTime;
 
 

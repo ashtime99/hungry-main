@@ -55,15 +55,15 @@ public class User implements Serializable {
     private Boolean userEnabled;
 
     @ApiModelProperty(value = "用户最近登录时间")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime userLoginTime;
 
     @ApiModelProperty(value = "用户创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime userCreateTime;
 
     @ApiModelProperty(value = "用户修改时间")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime userUpdateTime;
 
 
