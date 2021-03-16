@@ -2,6 +2,8 @@ package com.ash.server.pojo;
 
 import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -15,7 +17,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author ash
- * @since 2021-01-26
+ * @since 2021-03-15
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,13 +28,8 @@ public class Commodity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "商品id")
+    @TableId(value = "commodity_id", type = IdType.AUTO)
     private Integer commodityId;
-
-    @ApiModelProperty(value = "商品分类id")
-    private String commodityCategoryId;
-
-    @ApiModelProperty(value = "图片id")
-    private Integer imageId;
 
     @ApiModelProperty(value = "商品名称")
     private String commodityName;

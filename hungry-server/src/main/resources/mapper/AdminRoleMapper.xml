@@ -9,10 +9,6 @@
         <result column="role_id" property="roleId" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, admin_id, role_id
-    </sql>
     <update id="addAdminRole">
         INSERT INTO h_admin_role(admin_id,role_id) VALUES
         <foreach collection="roleIds" item="role_id" separator=",">

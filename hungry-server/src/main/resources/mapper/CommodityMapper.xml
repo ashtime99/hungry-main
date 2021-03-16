@@ -5,7 +5,6 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ash.server.pojo.Commodity">
         <id column="commodity_id" property="commodityId" />
-        <result column="commodity_category_id" property="commodityCategoryId" />
 <!--        <result column="image_id" property="imageId" />-->
         <result column="commodity_name" property="commodityName" />
         <result column="commodity_stock" property="commodityStock" />
@@ -18,9 +17,35 @@
         <result column="commodity_update_time" property="commodityUpdateTime" />
     </resultMap>
 
+    <resultMap id="CommodityWithCategory" type="com.ash.server.pojo.Commodity" extends="BaseResultMap">
+        <collection property="categorys" ofType="com.ash.server.pojo.Category">
+            <id column="category_id" property="categoryId" />
+            <result column="category_name" property="categoryName" />
+        </collection>
+    </resultMap>
+
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         commodity_id, commodity_category_id,commodity_name, commodity_stock, commodity_price, commodity_discount, commodity_describe, commodity_locked, commodity_enable, commodity_create_time, commodity_update_time
     </sql>
+    <select id="getAllCommodity" resultMap="CommodityWithCategory">
+        SELECT
+        c.*,
+        ca.category_id,
+        ca.category_name
+        FROM
+        h_commodity c,
+        h_commodity_category cc,
+        h_category ca
+        WHERE
+        c.commodity_id=cc.commodity_id
+        AND
+        cc.category_id=ca.category_id
+        <if test="null!=keywords and ''!=keywords">
+            AND c.commodity_name LIKE CONCAT('%',#{keywords},'%')
+        </if>
+    </select>
+
 
 </mapper>

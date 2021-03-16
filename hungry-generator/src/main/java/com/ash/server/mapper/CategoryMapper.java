@@ -1,6 +1,6 @@
 package com.ash.server.mapper;
 
-import com.ash.server.pojo.Commodity;
+import com.ash.server.pojo.Category;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author ash
  * @since 2021-03-15
  */
-public interface CommodityMapper extends BaseMapper<Commodity> {
+public interface CategoryMapper extends BaseMapper<Category> {
 
 }

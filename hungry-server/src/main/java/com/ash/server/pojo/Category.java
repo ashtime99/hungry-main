@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,21 +19,16 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("h_commodity_category")
-@ApiModel(value="CommodityCategory对象", description="")
-public class CommodityCategory implements Serializable {
+@TableName("h_category")
+@ApiModel(value="Category对象", description="")
+public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "商品规格id")
-    @TableId(value = "commodity_category_id", type = IdType.AUTO)
-    private Integer commodityCategoryId;
-
-    @ApiModelProperty(value = "商品id")
-    private Integer commodityId;
-
-    @ApiModelProperty(value = "商品规格id")
+    @TableId(value = "category_id", type = IdType.AUTO)
     private Integer categoryId;
+
+    private String categoryName;
 
 
 }

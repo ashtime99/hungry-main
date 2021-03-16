@@ -1,6 +1,7 @@
 package com.ash.server.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -67,6 +68,10 @@ public class Commodity implements Serializable {
     @ApiModelProperty(value = "商品最近修改时间")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime commodityUpdateTime;
+
+    @ApiModelProperty(value = "商品类别")
+    @TableField(exist = false)
+    private Category categorys;
 
 
 }

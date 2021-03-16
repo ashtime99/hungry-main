@@ -2,7 +2,6 @@ package com.ash.server.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-03-15
  */
 @RestController
-@RequestMapping("/commodity-category")
-public class CommodityCategoryController {
+@RequestMapping("/category")
+public class CategoryController {
 
 }

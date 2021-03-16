@@ -1,8 +1,8 @@
 package com.ash.server.service.impl;
 
-import com.ash.server.pojo.Commodity;
-import com.ash.server.mapper.CommodityMapper;
-import com.ash.server.service.ICommodityService;
+import com.ash.server.pojo.Category;
+import com.ash.server.mapper.CategoryMapper;
+import com.ash.server.service.ICategoryService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2021-03-15
  */
 @Service
-public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity> implements ICommodityService {
+public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements ICategoryService {
 
 }

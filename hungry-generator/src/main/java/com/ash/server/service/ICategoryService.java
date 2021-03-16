@@ -1,6 +1,6 @@
 package com.ash.server.service;
 
-import com.ash.server.pojo.CommodityCategory;
+import com.ash.server.pojo.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author ash
  * @since 2021-03-15
  */
-public interface ICommodityCategoryService extends IService<CommodityCategory> {
+public interface ICategoryService extends IService<Category> {
 
 }

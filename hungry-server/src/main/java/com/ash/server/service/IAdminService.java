@@ -38,9 +38,10 @@ public interface IAdminService extends IService<Admin> {
 
     /**
      * @Description: 根据用户id查询角色列表
+     * @Param: [adminId]
+     * @Return: java.util.List<com.ash.server.pojo.Role>
      * @Author ash
-     * @Date 2021/2/5 17:22
-     * @Version 1.0
+     * @Date: 17:56 2021/3/15
      */
     List<Role>getRoles(Integer adminId);
 
