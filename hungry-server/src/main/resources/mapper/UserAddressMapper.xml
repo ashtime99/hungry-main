@@ -12,9 +12,14 @@
         <result column="address_update_time" property="addressUpdateTime" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        address_id, user_id, address_describe, address_delete, address_create_time, address_update_time
-    </sql>
+    <select id="getUserAddress" resultType="com.ash.server.pojo.UserAddress">
+        SELECT
+            ud.*
+        FROM
+            h_user_address ud
+                RIGHT JOIN h_user u ON ud.user_id = u.user_id
+        WHERE
+            ud.user_id =#{userId}
+    </select>
 
 </mapper>

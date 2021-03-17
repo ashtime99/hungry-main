@@ -3,15 +3,15 @@ package com.ash.server.service.impl;
 import com.ash.server.mapper.CommodityCategoryMapper;
 import com.ash.server.mapper.CommodityMapper;
 import com.ash.server.pojo.Commodity;
-import com.ash.server.pojo.CommodityCategory;
-import com.ash.server.pojo.RespBean;
+import com.ash.server.pojo.RespPageBean;
 import com.ash.server.service.ICommodityService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -40,6 +40,21 @@ public class CommodityServiceImpl extends ServiceImpl<CommodityMapper, Commodity
     @Override
     public List<Commodity> getAllCommodity(String keywords) {
         return commodityMapper.getAllCommodity(keywords);
+    }
+
+    /**
+     * @Description:  获取所有菜品（分页）
+     * @Param: [currentPage, size, beginDataScope]
+     * @Return: com.ash.server.pojo.RespPageBean
+     * @Author ash
+     * @Date: 15:08 2021/3/16
+     */
+    @Override
+    public RespPageBean getCommodity(Integer currentPage, Integer size,String keywords) {
+        Page<Commodity> page=new Page<>(currentPage,size);
+        IPage<Commodity>commodityByPage=commodityMapper.getCommodityByPage(page,keywords);
+        RespPageBean respPageBean=new RespPageBean(commodityByPage.getTotal(),commodityByPage.getRecords());
+        return respPageBean;
     }
 
 }

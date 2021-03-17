@@ -9,9 +9,5 @@
         <result column="category_id" property="categoryId" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        commodity_category_id, commodity_id, category_id
-    </sql>
 
 </mapper>

@@ -15,12 +15,15 @@ import java.util.List;
  * @since 2021-03-15
  */
 public interface CategoryMapper extends BaseMapper<Category> {
+
+
+
     /**
      * @Description: 根据商品id查询类别列表
-     * @Param: [adminId]
-     * @Return: java.util.List<com.ash.server.pojo.Role>
+     * @Param: [commodityId]
+     * @Return: java.util.List<com.ash.server.pojo.Category>
      * @Author ash
-     * @Date: 17:24 2021/2/5
+     * @Date: 11:26 2021/3/17
      */
     List<Category> getCategory(Integer commodityId);
 }

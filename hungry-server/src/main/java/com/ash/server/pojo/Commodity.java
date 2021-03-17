@@ -13,6 +13,7 @@ import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -34,11 +35,11 @@ public class Commodity implements Serializable {
     @TableId(value = "commodity_id", type = IdType.AUTO)
     private Integer commodityId;
 
-    @ApiModelProperty(value = "商品分类id")
-    private String commodityCategoryId;
+//    @ApiModelProperty(value = "商品分类id")
+//    private String commodityCategoryId;
 
-//    @ApiModelProperty(value = "图片id")
-//    private Integer imageId;
+    @ApiModelProperty(value = "商品图片")
+    private String commodityImage;
 
     @ApiModelProperty(value = "商品名称")
     private String commodityName;
@@ -71,7 +72,7 @@ public class Commodity implements Serializable {
 
     @ApiModelProperty(value = "商品类别")
     @TableField(exist = false)
-    private Category categorys;
+    private List<Category> categorys;
 
 
 }

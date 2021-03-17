@@ -4,7 +4,10 @@ import com.ash.server.mapper.UserAddressMapper;
 import com.ash.server.pojo.UserAddress;
 import com.ash.server.service.IUserAddressService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserAddressServiceImpl extends ServiceImpl<UserAddressMapper, UserAddress> implements IUserAddressService {
 
+    @Override
+    public List<UserAddress> getUserAddress(Integer userId) {
+        return baseMapper.getUserAddress(userId);
+    }
 }

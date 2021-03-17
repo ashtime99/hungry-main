@@ -1,7 +1,10 @@
 package com.ash.server.service;
 
+import com.ash.server.pojo.Commodity;
 import com.ash.server.pojo.CommodityCategory;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ICommodityCategoryService extends IService<CommodityCategory> {
 
+    List<Commodity> getAllCommodity(String keywords);
 }

@@ -1,14 +1,15 @@
 package com.ash.server.controller;
 
 
-import com.ash.server.pojo.Admin;
-import com.ash.server.pojo.Commodity;
-import com.ash.server.pojo.RespBean;
+import com.ash.server.pojo.*;
+import com.ash.server.service.ICategoryService;
+import com.ash.server.service.ICommodityCategoryService;
 import com.ash.server.service.ICommodityService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -23,12 +24,28 @@ public class CommodityController {
 
     @Autowired
     private ICommodityService commodityService;
+    @Autowired
+    private ICategoryService categoryService;
 
-    @ApiOperation("获取所有商品")
-    @GetMapping("/")
-    public List<Commodity> getAllCommodity(String keywords){
-        return commodityService.getAllCommodity(keywords);
+//    @ApiOperation("获取所有商品")
+//    @GetMapping("/")
+//    public List<Commodity> getAllCommodity(String keywords){
+//        return commodityService.getAllCommodity(keywords);
+//    }
+    @ApiOperation("获取所有菜品类别")
+    @GetMapping("/category")
+    public List<Category> getCategory(){
+        return categoryService.list();
     }
+
+    @ApiOperation("获取所有菜品（分页）")
+    @GetMapping("/")
+    public RespPageBean getCommodity(@RequestParam(defaultValue = "1")Integer currentPage,
+                                     @RequestParam(defaultValue = "10")Integer size,
+                                     String keywords){
+        return commodityService.getCommodity(currentPage,size,keywords);
+    }
+
 
     @ApiOperation("添加商品")
     @PostMapping("/")
@@ -56,4 +73,6 @@ public class CommodityController {
         }
         return RespBean.error("删除失败！");
     }
+
+
 }

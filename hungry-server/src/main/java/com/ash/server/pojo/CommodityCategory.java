@@ -1,6 +1,7 @@
 package com.ash.server.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -36,5 +37,11 @@ public class CommodityCategory implements Serializable {
     @ApiModelProperty(value = "商品规格id")
     private Integer categoryId;
 
+    @ApiModelProperty(value = "商品")
+    @TableField(exist = false)
+    private Commodity commodity;
 
+    @ApiModelProperty(value = "商品类别")
+    @TableField(exist = false)
+    private Category category;
 }
