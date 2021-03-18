@@ -1,5 +1,6 @@
 package com.ash.server.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -9,6 +10,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -77,6 +79,35 @@ public class Order implements Serializable {
 
     @ApiModelProperty(value = "订单备注")
     private String orderRemarks;
+
+    @ApiModelProperty(value = "用户")
+    @TableField(exist = false)
+    private User user;
+
+    @ApiModelProperty(value = "地址")
+    @TableField(exist = false)
+    private UserAddress userAddress;
+
+    @ApiModelProperty(value = "订单状态")
+    @TableField(exist = false)
+    private OrderStatus orderStatus;
+
+    @ApiModelProperty(value = "订单详情")
+    @TableField(exist = false)
+    private List<OrderDetailed> orderDetaileds;
+
+//    @ApiModelProperty(value = "商品类别")
+//    @TableField(exist = false)
+//    private CommodityCategory commodityCategory;
+//
+//    @ApiModelProperty(value = "商品")
+//    @TableField(exist = false)
+//    private Commodity commodity;
+//
+//    @ApiModelProperty(value = "类别")
+//    @TableField(exist = false)
+//    private Category category;
+
 
 
 }

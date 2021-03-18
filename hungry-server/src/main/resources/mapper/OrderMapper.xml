@@ -22,10 +22,69 @@
         <result column="order_dining_style" property="orderDiningStyle" />
         <result column="order_remarks" property="orderRemarks" />
     </resultMap>
+    
+    <resultMap id="OrderInfo" type="com.ash.server.pojo.Order" extends="BaseResultMap">
+        <association property="user" javaType="com.ash.server.pojo.User">
+            <id column="user_id" property="userId"/>
+            <result column="user_nickname" property="userNickname"/>
+        </association>
+        <association property="orderStatus" javaType="com.ash.server.pojo.OrderStatus">
+            <id column="order_status_id" property="orderStatusId"/>
+            <result column="order_status_name" property="orderStatusName"/>
+        </association>
+        <association property="userAddress" javaType="com.ash.server.pojo.UserAddress">
+            <id column="address_id" property="addressId"/>
+            <result column="address_describe" property="addressDescribe"/>
+        </association>
+        <collection property="orderDetaileds" ofType="com.ash.server.pojo.OrderDetailed">
+            <id column="order_detailed_id" property="orderDetailedId" />
+            <result column="order_id" property="orderId" />
+            <result column="commodity_category_id" property="commodityCategoryId" />
+            <result column="order_detailed_num" property="orderDetailedNum" />
+            <result column="order_detailed_price" property="orderDetailedPrice" />
+        </collection>
+    </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         order_id, order_status_id, user_id, address_id, operator_id, order_delivery, driver_id, order_total, order_create_time, order_update_time, order_cancel_time, order_paid_time, order_received_time, order_delivery_time, order_completed_time, order_dining_style, order_remarks
     </sql>
+
+    <!--获取所有员工（分页）-->
+    <select id="getOrderByPage" resultMap="OrderInfo">
+        SELECT
+            o.*,
+            os.*,
+            od.*,
+            u.user_nickname,
+            ua.address_describe
+        FROM
+            h_order o,
+            h_order_status os,
+            h_order_detailed od,
+            h_user u,
+            h_user_address ua
+        WHERE
+            o.order_status_id = os.order_status_id
+          AND o.order_id = od.order_id
+          AND o.user_id = u.user_id
+          AND o.address_id = ua.address_id
+          <if test="null!=order.user.userNickname and ''!=order.user.userNickname">
+              AND u.user_nickname LIKE CONCAT('%',#{order.user.userNickname},'%')
+          </if>
+        <if test="null!=order.orderId">
+            AND o.order_id=2
+        </if>
+        <if test="null!=order.orderStatusId">
+            AND o.order_status_id=3
+        </if>
+<!--        <if test="null!=order.commodity.commodityName and ''!=order.commodity.commodityName">-->
+<!--            AND c.commodity_name LIKE CONCAT('%',#{order.commodity.commodityName},'%')-->
+<!--        </if>-->
+        <if test="null!=order.orderCreateTime and 2==beginDataScope.length">
+            AND o.order_create_time BETWEEN #{beginDataScope[0]} AND #{beginDataScope[1]}
+        </if>
+        ORDER BY o.order_id
+    </select>
 
 </mapper>

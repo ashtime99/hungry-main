@@ -62,7 +62,7 @@ public class Shoppingcart implements Serializable {
     @TableField(exist = false)
     private Commodity commodity;
 
-    @ApiModelProperty(value = "商品类别")
+    @ApiModelProperty(value = "类别")
     @TableField(exist = false)
     private Category category;
 

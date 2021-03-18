@@ -1,6 +1,7 @@
 package com.ash.server.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -34,8 +35,8 @@ public class OrderDetailed implements Serializable {
     @ApiModelProperty(value = "订单id")
     private Long orderId;
 
-    @ApiModelProperty(value = "商品id")
-    private Integer commodityId;
+//    @ApiModelProperty(value = "商品id")
+//    private Integer commodityId;
 
     @ApiModelProperty(value = "订单规格id")
     private Integer commodityCategoryId;
@@ -45,6 +46,22 @@ public class OrderDetailed implements Serializable {
 
     @ApiModelProperty(value = "订单单价")
     private BigDecimal orderDetailedPrice;
+
+    @ApiModelProperty(value = "订单")
+    @TableField(exist = false)
+    private Order order;
+
+    @ApiModelProperty(value = "商品类别")
+    @TableField(exist = false)
+    private CommodityCategory commodityCategory;
+
+    @ApiModelProperty(value = "商品")
+    @TableField(exist = false)
+    private Commodity commodity;
+
+    @ApiModelProperty(value = "类别")
+    @TableField(exist = false)
+    private Category category;
 
 
 }

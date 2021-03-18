@@ -21,7 +21,6 @@
         </association>
         <association property="commodityCategory" javaType="com.ash.server.pojo.CommodityCategory">
             <id column="commodity_category_id" property="commodityCategoryId" />
-<!--            <result column="commodity_id" property="commodityId" />-->
             <association property="commodity" javaType="com.ash.server.pojo.Commodity">
                 <id column="commodity_id" property="commodityId" />
                 <result column="commodity_image" property="commodityImage" />
@@ -30,7 +29,6 @@
                 <result column="commodity_discount" property="commodityDiscount" />
                 <result column="commodity_describe" property="commodityDescribe" />
             </association>
-<!--            <result column="category_id" property="categoryId" />-->
             <association property="category" javaType="com.ash.server.pojo.Category">
                 <id column="category_id" property="categoryId" />
                 <result column="category_name" property="categoryName" />
