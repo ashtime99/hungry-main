@@ -23,4 +23,6 @@ public class AdminLoginParam {
     private String password;
     @ApiModelProperty(value = "验证码",required = true)
     private String code;
+    @ApiModelProperty(value = "类型",required = true)
+    private String type;
 }

@@ -1,6 +1,7 @@
 package com.ash.server.controller;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +15,16 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
- * @Description 验证码
- * @Author ash
- * @Date 2021/1/28 15:08
- * @Version 1.0
- **/
+ * <p>
+ * 验证码
+ * </p>
+ *
+ * @author ash
+ * @version 1.0
+ * @since 2021/3/29 12:07
+ */
 @RestController
+@Api(tags = "验证码API")
 public class CaptchaController {
 
     @Autowired

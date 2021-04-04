@@ -1,6 +1,7 @@
 package com.ash.server.service;
 
 import com.ash.server.pojo.Admin;
+import com.ash.server.pojo.AdminLoginParam;
 import com.ash.server.pojo.RespBean;
 import com.ash.server.pojo.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -10,11 +11,12 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * TODO
  * </p>
  *
  * @author ash
- * @since 2021-01-26
+ * @since 2021/3/29 11:58
+ * @Version 1.0
  */
 public interface IAdminService extends IService<Admin> {
 
@@ -25,7 +27,7 @@ public interface IAdminService extends IService<Admin> {
      * @Author ash
      * @Date: 23:00 2021/1/26
      */ 
-    RespBean login(String username, String password,String code, HttpServletRequest request);
+    RespBean login(AdminLoginParam adminLoginParam, HttpServletRequest request);
 
     /** 
      * @Description: 根据用户名获取用户
@@ -36,30 +38,33 @@ public interface IAdminService extends IService<Admin> {
      */ 
     Admin getAdminByUsername(String username);
 
-    /**
-     * @Description: 根据用户id查询角色列表
-     * @Param: [adminId]
-     * @Return: java.util.List<com.ash.server.pojo.Role>
+    /** 
+     * 根据用户id查询角色列表 
+     * @Param: [adminId] 
+     * @Return: java.util.List<com.ash.server.pojo.Role> 
      * @Author ash
-     * @Date: 17:56 2021/3/15
-     */
+     * @Date: 18:10 2021/3/23
+     */ 
     List<Role>getRoles(Integer adminId);
 
-    /** 
-     * @Description: 获取所有操作员
-     * @Param: [keywords] 
-     * @Return: java.util.List<com.ash.server.pojo.Admin> 
-     * @Author ash
-     * @Date: 13:22 2021/3/11
-     */ 
+    /**
+     * 获取所有管理员
+     *
+     * @param keywords 关键字
+     * @return java.util.List<com.ash.server.pojo.Admin>
+     * @author ash
+     */
     List<Admin> getAllAdmins(String keywords);
 
     /**
-     * @Description: 更新操作员角色
-     * @Param: [adminId, roleIds]
-     * @Return: com.ash.server.pojo.RespBean
-     * @Author ash
-     * @Date: 17:40 2021/3/11
+     * 更新管理员权限
+     *
+     * @param adminId 管理员id
+     * @param roleIds 权限ids
+     * @return com.ash.server.pojo.RespBean
+     * @author ash
      */
     RespBean updateAdminRole(Integer adminId, Integer[] roleIds);
+
+    RespBean addAdmin(Admin admin);
 }

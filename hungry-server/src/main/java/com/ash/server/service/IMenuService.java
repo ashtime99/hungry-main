@@ -15,30 +15,37 @@ import java.util.List;
  */
 public interface IMenuService extends IService<Menu> {
 
-    /** 
-     * @Description: 通过管理员id查询菜单列表 
-     * @Param: [] 
-     * @Return: java.util.List<com.ash.server.pojo.Menu> 
-     * @Author ash
-     * @Date: 17:29 2021/1/30
-     */ 
+    /**
+     * 通过管理员id查询菜单列表
+     *
+     * @return java.util.List<com.ash.server.pojo.Menu>
+     * @author ash
+     */
     List<Menu> getMenusByAdminId();
 
-    /** 
-     * @Description: 根据角色获取菜单列表
-     * @Param: [] 
-     * @Return: java.util.List<com.ash.server.pojo.Menu> 
-     * @Author ash
-     * @Date: 16:33 2021/2/4
-     */ 
+    /**
+     * 根据角色获取菜单列表
+     *
+     * @return java.util.List<com.ash.server.pojo.Menu>
+     * @author ash
+     */
     List<Menu> getMenusWithRole();
 
     /**
-     * @Description: 查询所有菜单
-     * @Param: []
-     * @Return: java.util.List<com.ash.server.pojo.Menu>
-     * @Author ash
-     * @Date: 16:47 2021/3/5
+     * 查询所有菜单
+     *
+     * @param
+     * @return java.util.List<com.ash.server.pojo.Menu>
+     * @author ash
      */
     List<Menu> getAllMenus();
+
+    /**
+     * 根据用户显示菜单
+     *
+     * @param
+     * @return java.util.List<com.ash.server.pojo.Menu>
+     * @author ash
+     */
+    List<Menu> getMenusByUser();
 }

@@ -106,7 +106,7 @@ public class Order implements Serializable {
 //
 //    @ApiModelProperty(value = "类别")
 //    @TableField(exist = false)
-//    private Category category;
+//    private Spec category;
 
 
 

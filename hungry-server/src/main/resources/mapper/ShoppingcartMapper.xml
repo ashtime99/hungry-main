@@ -7,7 +7,7 @@
         <id column="shoppingcart_id" property="shoppingcartId" />
 <!--        <result column="user_id" property="userId" />-->
 <!--        <result column="commodity_id" property="commodityId" />-->
-        <result column="commodity_category_id" property="commodityCategoryId" />
+        <result column="commodity_spec_id" property="commoditySpecId" />
         <result column="shoppingcart_num" property="shoppingcartNum" />
         <result column="shoppingcart_delete" property="shoppingcartDelete" />
         <result column="shoppingcart_create_time" property="shoppingcartCreateTime" />
@@ -19,8 +19,8 @@
             <id column="user_id" property="userId"/>
             <result column="user_nickname" property="userNickname" />
         </association>
-        <association property="commodityCategory" javaType="com.ash.server.pojo.CommodityCategory">
-            <id column="commodity_category_id" property="commodityCategoryId" />
+        <association property="commoditySpec" javaType="com.ash.server.pojo.CommoditySpec">
+            <id column="commodity_spec_id" property="commoditySpecId" />
             <association property="commodity" javaType="com.ash.server.pojo.Commodity">
                 <id column="commodity_id" property="commodityId" />
                 <result column="commodity_image" property="commodityImage" />
@@ -29,16 +29,15 @@
                 <result column="commodity_discount" property="commodityDiscount" />
                 <result column="commodity_describe" property="commodityDescribe" />
             </association>
-            <association property="category" javaType="com.ash.server.pojo.Category">
-                <id column="category_id" property="categoryId" />
-                <result column="category_name" property="categoryName" />
+            <association property="spec" javaType="com.ash.server.pojo.Spec">
+                <id column="spec_id" property="specId" />
+                <result column="spec_name" property="specName" />
             </association>
         </association>
     </resultMap>
 
     <select id="getShoppingcartByUser" resultMap="ShoppingcartByUser">
         SELECT
-            u.user_id,
             u.user_nickname,
             s.*,
             c.commodity_id,
@@ -48,20 +47,20 @@
             c.commodity_price,
             c.commodity_discount,
             c.commodity_describe,
-            cc.commodity_category_id,
-            ca.category_name,
-            ca.category_id
+            cs.commodity_spec_id,
+            sp.spec_name,
+            sp.spec_id
         FROM
             h_shoppingcart s,
             h_user u,
             h_commodity c,
-            h_category ca,
-            h_commodity_category cc
+            h_spec sp,
+            h_commodity_spec cs
         WHERE
             s.user_id=u.user_id
-          AND cc.commodity_id=c.commodity_id
-          AND s.commodity_category_id=cc.commodity_category_id
-          AND cc.category_id=ca.category_id
+          AND cs.commodity_id=c.commodity_id
+          AND s.commodity_spec_id=cs.commodity_spec_id
+          AND cs.spec_id=sp.spec_id
           AND u.user_id=#{userId}
     </select>
 

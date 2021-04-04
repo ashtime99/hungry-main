@@ -33,10 +33,10 @@ public class Shoppingcart implements Serializable {
     private Integer shoppingcartId;
 
     @ApiModelProperty(value = "用户id")
-    private Integer userId;
+    private Integer adminId;
 
-    @ApiModelProperty(value = "商品分类id")
-    private Integer commodityCategoryId;
+    @ApiModelProperty(value = "商品规格id")
+    private Integer commoditySpecId;
 
     @ApiModelProperty(value = "购物车数量")
     private Integer shoppingcartNum;
@@ -56,7 +56,7 @@ public class Shoppingcart implements Serializable {
 
     @ApiModelProperty(value = "商品类别")
     @TableField(exist = false)
-    private CommodityCategory commodityCategory;
+    private CommoditySpec commoditySpec;
 
     @ApiModelProperty(value = "商品")
     @TableField(exist = false)
@@ -64,7 +64,7 @@ public class Shoppingcart implements Serializable {
 
     @ApiModelProperty(value = "类别")
     @TableField(exist = false)
-    private Category category;
+    private Spec spec;
 
 
 

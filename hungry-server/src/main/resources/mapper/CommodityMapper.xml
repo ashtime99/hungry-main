@@ -16,38 +16,61 @@
         <result column="commodity_create_time" property="commodityCreateTime" />
         <result column="commodity_update_time" property="commodityUpdateTime" />
     </resultMap>
-
-    <resultMap id="CommodityWithCategory" type="com.ash.server.pojo.Commodity" extends="BaseResultMap">
-        <collection property="categorys" ofType="com.ash.server.pojo.Category">
+    
+    <resultMap id="getCategoryInfo" type="com.ash.server.pojo.Commodity" extends="BaseResultMap">
+        <association property="category" javaType="com.ash.server.pojo.Category">
             <id column="category_id" property="categoryId" />
             <result column="category_name" property="categoryName" />
-        </collection>
+        </association>
     </resultMap>
 
-    <select id="getAllCommodity" resultMap="CommodityWithCategory">
+    <select id="getCommodity" resultMap="getCategoryInfo">
         SELECT
         c.*,
-        ca.category_id,
         ca.category_name
         FROM
-        h_commodity c
-        LEFT JOIN
-        h_commodity_category cc ON c.commodity_id=cc.commodity_id
-        LEFT JOIN
-        h_category ca ON cc.category_id=ca.category_id
+        h_commodity c,
+        h_category ca
+        WHERE
+        c.category_id = ca.category_id
+        AND c.commodity_locked = FALSE
         <if test="null!=keywords and ''!=keywords">
-            WHERE c.commodity_name LIKE CONCAT('%',#{keywords},'%')
+            AND c.commodity_name LIKE CONCAT('%',#{keywords},'%')
         </if>
+        <if test="null!=categoryId">
+            AND c.category_id=#{categoryId}
+        </if>
+        ORDER BY
+        c.commodity_id
     </select>
 
-    <select id="getCommodityByPage" resultMap="CommodityWithCategory">
+    <select id="getCommodityByPage" resultMap="getCategoryInfo">
         SELECT
-        c.*
+        c.*,
+        ca.category_name
         FROM
-        h_commodity c
+        h_commodity c,
+        h_category ca
+        WHERE
+        c.category_id=ca.category_id
         <if test="null!=keywords and ''!=keywords">
-            WHERE c.commodity_name LIKE CONCAT('%',#{keywords},'%')
+            AND c.commodity_name LIKE CONCAT('%',#{keywords},'%')
         </if>
+    </select>
+    <select id="getCommodityExcel" resultMap="getCategoryInfo">
+        SELECT
+        c.*,
+        ca.category_name
+        FROM
+        h_commodity c,
+        h_category ca
+        WHERE
+        c.category_id = ca.category_id
+        <if test="null!=id">
+            AND c.commodity_id=#{id}
+        </if>
+        ORDER BY
+        c.commodity_id
     </select>
 
 

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>
@@ -27,6 +28,13 @@ public class OrderDetailedServiceImpl extends ServiceImpl<OrderDetailedMapper, O
     @Autowired
     private OrderDetailedMapper orderDetailedMapper;
 
+    /**
+     * @Description: 显示订单详情（分页）
+     * @Param: [currentPage, size, orderDetailed]
+     * @Return: com.ash.server.pojo.RespPageBean
+     * @Author ash
+     * @Date: 15:23 2021/3/23
+     */
     @Override
     public RespPageBean getOrderDetailedByPage(Integer currentPage, Integer size, OrderDetailed orderDetailed) {
         //开启分页
@@ -34,5 +42,17 @@ public class OrderDetailedServiceImpl extends ServiceImpl<OrderDetailedMapper, O
         IPage<Order> orderByPage=orderDetailedMapper.getOrderDetailedByPage(page,orderDetailed);
         RespPageBean respPageBean=new RespPageBean(orderByPage.getTotal(),orderByPage.getRecords());
         return respPageBean;
+    }
+
+    /**
+     * @Description: 根据订单号显示详情
+     * @Param: [orderId]
+     * @Return: java.util.List<com.ash.server.pojo.OrderDetailed>
+     * @Author ash
+     * @Date: 15:23 2021/3/23
+     */
+    @Override
+    public List<OrderDetailed> getOrderDetailedByOrderId(Integer orderId) {
+        return orderDetailedMapper.getOrderDetailedByOrderId(orderId);
     }
 }

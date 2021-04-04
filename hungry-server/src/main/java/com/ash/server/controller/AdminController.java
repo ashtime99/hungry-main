@@ -6,6 +6,9 @@ import com.ash.server.pojo.RespBean;
 import com.ash.server.pojo.Role;
 import com.ash.server.service.IAdminService;
 import com.ash.server.service.IRoleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +17,16 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 管理员前端控制器
  * </p>
  *
  * @author ash
- * @since 2021-01-26
+ * @version 1.0
+ * @since 2021/3/29 12:06
  */
 @RestController
 @RequestMapping("/system/admin")
+@Api(tags = "管理员管理API")
 public class AdminController {
 
     @Autowired
@@ -29,14 +34,23 @@ public class AdminController {
     @Autowired
     private IRoleService roleService;
 
-    @ApiOperation(value="获取所有操作员")
+
     @GetMapping("/")
+    @ApiOperation(value="获取所有管理员")
+    @ApiImplicitParam(name = "keywords",value = "关键字")
     public List<Admin>getAllAdmins(String keywords){
         return adminService.getAllAdmins(keywords);
     }
 
 
-    @ApiOperation(value="更新操作员")
+    @PostMapping("/")
+    @ApiOperation(value = "添加管理员")
+    public RespBean addAdmin(@RequestBody Admin admin){
+        return adminService.addAdmin(admin);
+    }
+
+
+    @ApiOperation(value="更新管理员")
     @PutMapping("/")
     public RespBean updateAdmin(@RequestBody Admin admin){
         if (adminService.updateById(admin)){
@@ -45,8 +59,9 @@ public class AdminController {
         return RespBean.error("更新失败!");
     }
 
-    @ApiOperation(value="删除操作员")
     @DeleteMapping("/{adminId}")
+    @ApiOperation(value="删除管理员")
+    @ApiImplicitParam(name = "adminId",value = "管理员id",required = true)
     public RespBean updateAdmin(@PathVariable Integer adminId){
         if (adminService.removeById(adminId)){
             return RespBean.success("删除成功!");
@@ -54,14 +69,14 @@ public class AdminController {
         return RespBean.error("删除失败!");
     }
 
-    @ApiOperation(value = "获取所有角色")
     @GetMapping("/roles")
+    @ApiOperation(value = "获取所有角色")
     public List<Role> getAllRoles() {
         return roleService.list();
     }
 
-    @ApiOperation(value="更新操作员角色")
     @PutMapping("/role")
+    @ApiOperation(value="更新管理员角色")
     public RespBean updateAdminRole(Integer adminId,Integer[] roleIds){
         return adminService.updateAdminRole(adminId,roleIds);
     }
@@ -74,4 +89,5 @@ public class AdminController {
 //        }
 //        return RespBean.error("删除失败!");
 //    }
+
 }

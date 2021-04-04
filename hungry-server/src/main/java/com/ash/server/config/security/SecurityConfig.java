@@ -2,10 +2,17 @@ package com.ash.server.config.security;
 
 import com.ash.server.config.security.component.*;
 import com.ash.server.pojo.Admin;
+import com.ash.server.pojo.User;
 import com.ash.server.service.IAdminService;
+import com.ash.server.service.IUserService;
+import org.checkerframework.checker.units.qual.min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,21 +24,27 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
- * @Description Security配置类
- * @Author ash
- * @Date 2021/1/27 11:39
- * @Version 1.0
- **/
+ * <p>
+ * Security配置类
+ * </p>
+ *
+ * @author ash
+ * @version 1.0
+ * @since 2021/4/1 17:18
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private IAdminService adminService;
+    @Autowired
+    private IUserService userService;
     @Autowired
     private RestAuthorizationEntryPoint restAuthorizationEntryPoint;
     @Autowired
@@ -51,11 +64,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new JwtAuthenticationTokenFilter();
     }
 
+    @Override
+    @Bean
+    protected AuthenticationManager authenticationManager() throws Exception {
+        DaoAuthenticationProvider dao1 = new DaoAuthenticationProvider();
+        dao1.setUserDetailsService(us1());
+
+        DaoAuthenticationProvider dao2 = new DaoAuthenticationProvider();
+        dao2.setUserDetailsService(us2());
+
+        ProviderManager manager = new ProviderManager(dao1, dao2);
+        return manager;
+    }
+
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
-
+        //auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+        //auth.userDetailsService(userService);
+        //auth.parentAuthenticationManager(authenticationManager());
     }
 
     @Override
@@ -63,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         webSecurity.ignoring().antMatchers(
                 "/login", "/logout", "/css/**", "/js/**", "/index.html", "favicon.ico",
                 "/doc.html", "/swagger-resources/**", "/v2/api-docs/**", "/webjars/**",
-                "/captcha","/images/**"
+                "/captcha","/images/**","/user/login"
         );
     }
 
@@ -103,16 +131,46 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Override
+//    @Override
+//    @Bean
+//    protected UserDetailsService userDetailsService() {
+//
+//        return username -> {
+//            Admin admin = adminService.getAdminByUsername(username);
+//            if (null != admin) {
+//                admin.setRoles(adminService.getRoles(admin.getAdminId()));
+//                return admin;
+//            }
+//            throw new UsernameNotFoundException("用户名或密码不正确");
+//        };
+//    }
+
     @Bean
-    protected UserDetailsService userDetailsService() {
-        return username -> {
-            Admin admin = adminService.getAdminByUsername(username);
+    UserDetailsService us2() {
+        return adminUsername -> {
+            System.out.println("userUsername:"+adminUsername);
+            User user = userService.getUserByUsername(adminUsername);
+            if (null != user) {
+
+                return user;
+            }
+            throw new UsernameNotFoundException("账户或密码不正确");
+        };
+    }
+
+    @Bean
+    @Primary
+    UserDetailsService us1() {
+
+        return adminUsername -> {
+            System.out.println("adminUsername:"+adminUsername);
+            Admin admin = adminService.getAdminByUsername(adminUsername);
             if (null != admin) {
                 admin.setRoles(adminService.getRoles(admin.getAdminId()));
                 return admin;
-            }
-            throw new UsernameNotFoundException("用户名或密码不正确");
+            }else return null;
+            //throw new UsernameNotFoundException("账户或密码不正确");
         };
     }
+
 }

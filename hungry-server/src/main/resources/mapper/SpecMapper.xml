@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ash.server.mapper.SpecMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.ash.server.pojo.Spec">
+        <id column="spec_id" property="specId" />
+        <result column="spec_name" property="specName" />
+    </resultMap>
+
+    <select id="getSpecByCommodityId" resultType="com.ash.server.pojo.Spec">
+        SELECT
+            s.*
+        FROM
+            h_spec s,
+            h_commodity_spec cc
+        WHERE
+            s.spec_id=cc.spec_id
+          AND cc.commodity_id=#{commodityId}
+    </select>
+
+</mapper>

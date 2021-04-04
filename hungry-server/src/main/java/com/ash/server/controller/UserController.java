@@ -1,37 +1,49 @@
 package com.ash.server.controller;
 
 
-import com.ash.server.pojo.RespBean;
-import com.ash.server.pojo.User;
-import com.ash.server.pojo.UserLoginParam;
+import com.ash.server.pojo.*;
 import com.ash.server.service.IUserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * @Description: user
- * @Author ash
- * @Date 2021/3/4 13:47
- * @Version 1.0
+ * <p>
+ * 用户API
+ * </p>
+ *
+ * @author ash
+ * @version 1.0
+ * @since 2021/3/29 12:09
  */
 @RestController
 @RequestMapping("/user")
+@Api(tags = "用户API",value = "1")
 public class UserController {
 
     @Autowired
     private IUserService userService;
 
-    @ApiOperation(value = "用户登录")
-    @GetMapping("/login")
-    public User userLogin(@RequestBody UserLoginParam userLoginParam, HttpServletRequest request){
-        return userService.userLogin(userLoginParam,request);
+    @ApiOperation(value = "获取当前用户信息")
+    @GetMapping("/user/info")
+    public User getAdminInfo(Principal principal){
+        if (null==principal){
+            return null;
+        }
+        String username=principal.getName();
+        User user=userService.getUserByUsername(username);
+        user.setUserPassword(null);
+        //user.setRoles(adminService.getRoles(admin.getAdminId()));
+        return user;
     }
+
 
     @ApiOperation(value = "显示所有用户")
     @GetMapping("/")
@@ -42,23 +54,13 @@ public class UserController {
     @ApiOperation(value = "添加用户")
     @PostMapping("/")
     public RespBean addUser(@RequestBody User user){
-        user.setUserCreateTime(LocalDateTime.now());
-        if (userService.save(user)){
-            return RespBean.success("添加成功!");
-        }else{
-            return RespBean.error("添加失败!");
-        }
+        return userService.addUser(user);
     }
 
     @ApiOperation(value = "根据id更新用户")
     @PutMapping("/")
     public RespBean updateUser(@RequestBody User user){
-        user.setUserUpdateTime(LocalDateTime.now());
-        if (userService.updateById(user)){
-            return RespBean.success("更新成功!");
-        }else{
-            return RespBean.error("更新失败!");
-        }
+        return userService.updateUser(user);
     }
 
     @ApiOperation(value = "根据id删除用户")

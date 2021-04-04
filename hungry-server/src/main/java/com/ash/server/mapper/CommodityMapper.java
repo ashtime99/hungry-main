@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,6 +18,8 @@ import java.util.List;
  * @author ash
  * @since 2021-01-26
  */
+
+@Repository
 public interface CommodityMapper extends BaseMapper<Commodity> {
 
     /**
@@ -26,10 +29,10 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
      * @Author ash
      * @Date: 15:26 2021/3/15
      */
-    List<Commodity> getAllCommodity(@Param("keywords") String keywords);
+    List<Commodity> getCommodity(@Param("keywords") String keywords,@Param("categoryId")Integer categoryId);
 
     /** 
-     * @Description: 获取所有菜品（分页） 
+     * @Description: 获取所有商品（分页）
      * @Param: [page, commodity, beginDataScope] 
      * @Return: com.baomidou.mybatisplus.core.metadata.IPage<com.ash.server.pojo.Commodity> 
      * @Author ash
@@ -37,4 +40,6 @@ public interface CommodityMapper extends BaseMapper<Commodity> {
      */ 
     IPage<Commodity> getCommodityByPage(Page<Commodity> page,
                                         @Param("keywords") String keywords);
+
+    List<Commodity> getCommodityExcel(Integer id);
 }

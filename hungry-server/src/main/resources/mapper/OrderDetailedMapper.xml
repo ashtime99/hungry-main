@@ -15,8 +15,8 @@
         <association property="order" javaType="com.ash.server.pojo.Order">
             <id column="order_id" property="orderId"/>
         </association>
-        <association property="commodityCategory" javaType="com.ash.server.pojo.CommodityCategory">
-            <id column="commodity_category_id" property="commodityCategoryId"/>
+        <association property="commoditySpec" javaType="com.ash.server.pojo.CommoditySpec">
+            <id column="commodity_spec_id" property="commoditySpecId"/>
             <association property="commodity" javaType="com.ash.server.pojo.Commodity">
                 <id column="commodity_id" property="commodityId"/>
                 <result column="commodity_image" property="commodityImage"/>
@@ -25,9 +25,9 @@
                 <result column="commodity_discount" property="commodityDiscount"/>
                 <result column="commodity_describe" property="commodityDescribe"/>
             </association>
-            <association property="category" javaType="com.ash.server.pojo.Category">
-                <id column="category_id" property="categoryId"/>
-                <result column="category_name" property="categoryName"/>
+            <association property="spec" javaType="com.ash.server.pojo.Spec">
+                <id column="spec_id" property="specId"/>
+                <result column="spec_name" property="specName"/>
             </association>
         </association>
     </resultMap>
@@ -42,26 +42,47 @@
         SELECT
         od.*,
         o.order_id,
-        cc.commodity_category_id,
-        ca.category_name,
+        cs.commodity_spec_id,
+        s.spec_name,
         c.commodity_name
         FROM
         h_order o,
         h_order_detailed od,
-        h_category ca,
+        h_spec s,
         h_commodity c,
-        h_commodity_category cc
+        h_commodity_spec cs
         WHERE
         o.order_id = od.order_id
-        AND cc.commodity_id = c.commodity_id
-        AND od.commodity_category_id = cc.commodity_category_id
-        AND cc.category_id = ca.category_id
+        AND cs.commodity_id = c.commodity_id
+        AND od.commodity_spec_id = cs.commodity_spec_id
+        AND cs.spec_id = s.spec_id
         <if test="null!=orderDetailed.order.orderId">
             AND od.order_id=#{orderDetailed.order.orderId}
         </if>
         <if test="null!=orderDetailed.commodity.commodityName and ''!=orderDetailed.commodity.commodityName">
             AND c.commodity_name LIKE CONCAT('%',#{orderDetailed.commodity.commodityName},'%')
         </if>
+        ORDER BY o.order_id
+    </select>
+    <select id="getOrderDetailedByOrderId" resultMap="OrderDetailInfo">
+        SELECT
+        od.*,
+        o.order_id,
+        cs.commodity_spec_id,
+        s.spec_name,
+        c.commodity_name
+        FROM
+        h_order o,
+        h_order_detailed od,
+        h_spec s,
+        h_commodity c,
+        h_commodity_spec cs
+        WHERE
+        o.order_id = od.order_id
+        AND cs.commodity_id = c.commodity_id
+        AND od.commodity_spec_id = cs.commodity_spec_id
+        AND cs.spec_id = s.spec_id
+        AND o.order_id=#{orderId}
         ORDER BY o.order_id
     </select>
 

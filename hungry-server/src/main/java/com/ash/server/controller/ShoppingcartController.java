@@ -1,10 +1,12 @@
 package com.ash.server.controller;
 
 
+import com.ash.server.AdminUtils;
 import com.ash.server.pojo.RespBean;
 import com.ash.server.pojo.Shoppingcart;
 import com.ash.server.pojo.UserAddress;
 import com.ash.server.service.IShoppingcartService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,13 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @Description: 购物车
- * @Author ash
- * @Date 2021/3/17 15:27
- * @Version 1.0
+ * <p>
+ * 购物车API
+ * </p>
+ *
+ * @author ash
+ * @version 1.0
+ * @since 2021/3/30 15:13
  */
 @RestController
 @RequestMapping("/shoppingcart")
+@Api(tags = "购物车API")
 public class ShoppingcartController {
 
     @Autowired
@@ -26,8 +32,8 @@ public class ShoppingcartController {
 
     @ApiOperation("根据用户查看购物车")
     @GetMapping("/")
-    public List<Shoppingcart> getShoppingcartByUser(@RequestParam Integer userId){
-        return shoppingcartService.getShoppingcartByUser(userId);
+    public List<Shoppingcart> getShoppingcartByUser(){
+        return shoppingcartService.getShoppingcartByUser(AdminUtils.getCurrentAdmin().getAdminId());
     }
 
     @ApiOperation(value = "用户添加一条购物车")

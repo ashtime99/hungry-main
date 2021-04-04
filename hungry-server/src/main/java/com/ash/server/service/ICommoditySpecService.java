@@ -1,7 +1,7 @@
 package com.ash.server.service;
 
 import com.ash.server.pojo.Commodity;
-import com.ash.server.pojo.CommodityCategory;
+import com.ash.server.pojo.CommoditySpec;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  * @author ash
  * @since 2021-03-15
  */
-public interface ICommodityCategoryService extends IService<CommodityCategory> {
+public interface ICommoditySpecService extends IService<CommoditySpec> {
 
     List<Commodity> getAllCommodity(String keywords);
 }

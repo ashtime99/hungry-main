@@ -8,16 +8,9 @@
         <result column="category_name" property="categoryName" />
     </resultMap>
 
-
-    <select id="getCategory" resultType="com.ash.server.pojo.Category">
-        SELECT
-            ca.category_id,
-            ca.category_name,
-        FROM
-            h_category AS ca
-                LEFT JOIN h_commodity_category AS cc ON ca.role_id = cc.role_id
-        WHERE
-            cc.commodity_id = #{commodityId}
-    </select>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        category_id, category_name
+    </sql>
 
 </mapper>

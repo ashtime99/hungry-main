@@ -21,15 +21,15 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("h_commodity_category")
-@ApiModel(value="CommodityCategory对象", description="")
-public class CommodityCategory implements Serializable {
+@TableName("h_commodity_spec")
+@ApiModel(value="CommoditySpec对象", description="")
+public class CommoditySpec implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "商品规格id")
     @TableId(value = "commodity_category_id", type = IdType.AUTO)
-    private Integer commodityCategoryId;
+    private Integer commoditySpecId;
 
     @ApiModelProperty(value = "商品id")
     private Integer commodityId;
@@ -43,5 +43,5 @@ public class CommodityCategory implements Serializable {
 
     @ApiModelProperty(value = "商品类别")
     @TableField(exist = false)
-    private Category category;
+    private Spec spec;
 }

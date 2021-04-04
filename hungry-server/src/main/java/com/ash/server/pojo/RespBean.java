@@ -1,65 +1,76 @@
 package com.ash.server.pojo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @Description 公共返回对象
- * @Author ash
- * @Date 2021/1/26 22:17
- * @Version 1.0
- **/
+ * <p>
+ * 公共返回对象
+ * </p>
+ *
+ * @author ash
+ * @version 1.0
+ * @since 2021/3/30 12:24
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(value="RespBean对象", description="公共返回对象")
 public class RespBean {
 
+    @ApiModelProperty("状态码")
     private long code;
+    @ApiModelProperty("返回内容")
     private String message;
-    private Object obj;
+    @ApiModelProperty("返回数据")
+    private Object data;
 
-    /** 
-     * @Description: 成功返回结果 
-     * @Param: [message] 
-     * @Return: com.ash.server.pojo.RespBean 
-     * @Author ash
-     * @Date: 22:20 2021/1/26
-     */ 
+    /**
+     * 成功返回结果
+     *
+     * @param message 返回内容
+     * @return com.ash.server.pojo.RespBean
+     * @author ash
+     */
     public static RespBean success(String message){
         return new RespBean(200,message,null);
     }
 
-    /** 
-     * @Description: 成功返回结果
-     * @Param: [message, obj] 
-     * @Return: com.ash.server.pojo.RespBean 
-     * @Author ash
-     * @Date: 22:20 2021/1/26
-     */ 
-    public static RespBean success(String message,Object obj){
-        return new RespBean(200,message,obj);
+    /**
+     * 成功返回结果
+     *
+     * @param message 返回内容
+     * @param data 返回数据
+     * @return com.ash.server.pojo.RespBean
+     * @author ash
+     */
+    public static RespBean success(String message,Object data){
+        return new RespBean(200,message,data);
     }
 
     /**
-     * @Description: 失败返回结果
-     * @Param: [message]
-     * @Return: com.ash.server.pojo.RespBean
-     * @Author ash
-     * @Date: 22:21 2021/1/26
+     * 失败返回结果
+     *
+     * @param message 返回内容
+     * @return com.ash.server.pojo.RespBean
+     * @author ash
      */
     public static RespBean error(String message){
         return new RespBean(500,message,null);
     }
 
     /**
-     * @Description: 失败返回结果
-     * @Param: [message, obj]
-     * @Return: com.ash.server.pojo.RespBean
-     * @Author ash
-     * @Date: 22:21 2021/1/26
+     * 失败返回结果
+     *
+     * @param message 返回内容
+     * @param data 返回数据
+     * @return com.ash.server.pojo.RespBean
+     * @author ash
      */
-    public static RespBean error(String message,Object obj){
-        return new RespBean(500,message,obj);
+    public static RespBean error(String message,Object data){
+        return new RespBean(500,message,data);
     }
 }

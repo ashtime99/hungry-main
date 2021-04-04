@@ -1,9 +1,10 @@
 package com.ash.server.mapper;
 
 import com.ash.server.pojo.Commodity;
-import com.ash.server.pojo.CommodityCategory;
+import com.ash.server.pojo.CommoditySpec;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,7 +16,8 @@ import java.util.List;
  * @author ash
  * @since 2021-03-15
  */
-public interface CommodityCategoryMapper extends BaseMapper<CommodityCategory> {
+@Repository
+public interface CommoditySpecMapper extends BaseMapper<CommoditySpec> {
     /** 
      * @Description: 获取所有商品
      * @Param: [keywords] 

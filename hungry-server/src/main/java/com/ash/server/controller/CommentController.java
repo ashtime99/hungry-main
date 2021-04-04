@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- *  前端控制器
+ * 评论前端控制器
  * </p>
  *
  * @author ash
- * @since 2021-01-26
+ * @version 1.0
+ * @since 2021/3/29 12:08
  */
 @RestController
 @RequestMapping("/comment")

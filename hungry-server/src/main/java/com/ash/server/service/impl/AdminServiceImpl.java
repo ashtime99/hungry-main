@@ -5,13 +5,11 @@ import com.ash.server.config.security.component.JwtTokenUtil;
 import com.ash.server.mapper.AdminMapper;
 import com.ash.server.mapper.AdminRoleMapper;
 import com.ash.server.mapper.RoleMapper;
-import com.ash.server.pojo.Admin;
-import com.ash.server.pojo.AdminRole;
-import com.ash.server.pojo.RespBean;
-import com.ash.server.pojo.Role;
+import com.ash.server.pojo.*;
 import com.ash.server.service.IAdminService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -53,6 +51,8 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
     private JwtTokenUtil jwtTokenUtil;
     @Value("${jwt.tokenHead}")
     private String tokenHead;
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     /**
      * @Description: 登录之后返回token
@@ -62,14 +62,14 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
      * @Date: 22:47 2021/1/26
      */
     @Override
-    public RespBean login(String username, String password,String code,HttpServletRequest request) {
+    public RespBean login(AdminLoginParam adminLoginParam, HttpServletRequest request) {
         String captcha = (String) request.getSession().getAttribute("captcha");
-        if (StringUtils.isEmpty(code)||!captcha.equalsIgnoreCase(code)){
+        if (StringUtils.isEmpty(adminLoginParam.getCode())||!captcha.equalsIgnoreCase(adminLoginParam.getCode())){
             return RespBean.error("验证码输入错误，请重新输入!");
         }
         //登录
-        UserDetails userDetails=userDetailsService.loadUserByUsername(username);
-        if (null==userDetails||!passwordEncoder.matches(password,userDetails.getPassword())){
+        UserDetails userDetails=userDetailsService.loadUserByUsername(adminLoginParam.getUsername());
+        if (null==userDetails||!passwordEncoder.matches(adminLoginParam.getPassword(),userDetails.getPassword())){
             return RespBean.error("用户名或者密码不正确");
         }
         if (!userDetails.isEnabled()){
@@ -141,5 +141,18 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
         }else{
             return RespBean.error("更新失败！");
         }
+    }
+
+    @Override
+    public RespBean addAdmin(Admin admin) {
+        String password=passwordEncoder.encode(admin.getAdminPassword());
+        admin.setAdminPassword(password);
+        if (1==adminMapper.insert(admin)){
+            Admin adm=adminMapper.getAllAdmin(admin.getAdminId(),"").get(0);
+            //发送信息
+            rabbitTemplate.convertAndSend("mail.welcome",adm);
+            return RespBean.success("添加成功！");
+        }
+        return RespBean.error("添加失败!");
     }
 }

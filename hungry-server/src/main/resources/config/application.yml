@@ -3,6 +3,12 @@ server:
   port: 8081
 
 spring:
+  servlet:
+    multipart:
+      enabled: true
+      location: D:/Desktop/hungry/hungry-main/hungry-server/src/main/resources/static/images
+      file-size-threshold: 5MB
+      max-file-size: 20MB
   # 数据源配置
   datasource:
     username: root
@@ -49,7 +55,11 @@ spring:
         max-idle: 200
         #最小空闲连接
         min-idle: 5
-
+  rabbitmq:
+    username: guest
+    password: guest
+    host: 127.0.0.1
+    port: 5672
 # mybatis-plus配置
 mybatis-plus:
   # 配置Mapper映射文件

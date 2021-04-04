@@ -1,0 +1,15 @@
+server:
+  port: 8082
+spring:
+  mail:
+    host: smtp.qq.com
+    protocol: smtp
+    default-encoding: utf-8
+    password: ncigpoadpicjdied
+    username: 2356530007@qq.com
+    port: 465
+rabbitmq:
+  username: guest
+  password: guest
+  host: 127.0.0.1
+  port: 5672

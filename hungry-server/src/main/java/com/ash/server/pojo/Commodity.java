@@ -1,5 +1,6 @@
 package com.ash.server.pojo;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -35,25 +36,29 @@ public class Commodity implements Serializable {
     @TableId(value = "commodity_id", type = IdType.AUTO)
     private Integer commodityId;
 
-//    @ApiModelProperty(value = "商品分类id")
-//    private String commodityCategoryId;
+    @ApiModelProperty(value = "商品分类id")
+    private Integer categoryId;
 
     @ApiModelProperty(value = "商品图片")
     private String commodityImage;
 
     @ApiModelProperty(value = "商品名称")
+    @Excel(name = "商品名称")
     private String commodityName;
 
     @ApiModelProperty(value = "商品库存")
+    @Excel(name = "商品库存")
     private String commodityStock;
 
-    @ApiModelProperty(value = "商品价格 ")
+    @ApiModelProperty(value = "商品价格")
+    @Excel(name = "商品价格")
     private BigDecimal commodityPrice;
 
     @ApiModelProperty(value = "商品折扣")
     private String commodityDiscount;
 
     @ApiModelProperty(value = "商品描述")
+    @Excel(name = "商品描述")
     private String commodityDescribe;
 
     @ApiModelProperty(value = "商品冻结状态（默认0，0-正常，1-冻结）")
@@ -63,6 +68,7 @@ public class Commodity implements Serializable {
     private Boolean commodityEnable;
 
     @ApiModelProperty(value = "商品创建时间")
+    @Excel(name = "商品创建时间",width = 10,timezone = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime commodityCreateTime;
 
@@ -70,9 +76,10 @@ public class Commodity implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime commodityUpdateTime;
 
-    @ApiModelProperty(value = "商品类别")
+    @ApiModelProperty(value = "类别")
     @TableField(exist = false)
-    private List<Category> categorys;
+    private Category category;
+
 
 
 }

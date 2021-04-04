@@ -2,6 +2,7 @@ package com.ash.server.mapper;
 
 import com.ash.server.pojo.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ import java.util.List;
  * @author ash
  * @since 2021-01-26
  */
+
+@Repository
 public interface MenuMapper extends BaseMapper<Menu> {
 
     /** 

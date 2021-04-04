@@ -53,7 +53,7 @@ public class OrderDetailed implements Serializable {
 
     @ApiModelProperty(value = "商品类别")
     @TableField(exist = false)
-    private CommodityCategory commodityCategory;
+    private CommoditySpec commoditySpec;
 
     @ApiModelProperty(value = "商品")
     @TableField(exist = false)
@@ -61,7 +61,7 @@ public class OrderDetailed implements Serializable {
 
     @ApiModelProperty(value = "类别")
     @TableField(exist = false)
-    private Category category;
+    private Spec spec;
 
 
 }

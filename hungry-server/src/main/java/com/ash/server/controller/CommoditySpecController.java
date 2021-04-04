@@ -2,19 +2,19 @@ package com.ash.server.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- *  前端控制器
+ * TODO
  * </p>
  *
  * @author ash
- * @since 2021-03-15
+ * @version 1.0
+ * @since 2021/3/29 12:10
  */
 @RestController
-@RequestMapping("/commodity-category")
-public class CommodityCategoryController {
+@RequestMapping("/commoditycategory")
+public class CommoditySpecController {
 
 }

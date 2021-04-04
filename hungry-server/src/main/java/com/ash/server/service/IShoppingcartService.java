@@ -7,11 +7,12 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
- * @author ash
- * @since 2021-01-26
+ * @Author ash
+ * @Since 2021/3/26 18:07
+ * @Version 1.0
  */
 public interface IShoppingcartService extends IService<Shoppingcart> {
 

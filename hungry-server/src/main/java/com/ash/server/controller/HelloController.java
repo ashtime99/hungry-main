@@ -1,15 +1,20 @@
 package com.ash.server.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @Description: 测试
- * @Author ash
- * @Date 2021/1/27 19:21
- * @Version 1.0
+ * <p>
+ * 测试
+ * </p>
+ *
+ * @author ash
+ * @version 1.0
+ * @since 2021/3/29 12:08
  */
 @RestController
+@Api(tags = "测试API")
 public class HelloController {
 
         @GetMapping("hello")

@@ -9,6 +9,7 @@ import com.ash.server.service.IMenuRoleService;
 import com.ash.server.service.IMenuService;
 import com.ash.server.service.IRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +18,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @Description: 权限组-角色
- * @Author ash
- * @Date 2021/3/5 16:33
- * @Version 1.0
+ * <p>
+ * 权限角色API
+ * </p>
+ *
+ * @author ash
+ * @version 1.0
+ * @since 2021/3/30 15:13
  */
 @RestController
 @RequestMapping("/system/basic/permission")
+@Api(tags = "权限角色API")
 public class RoleController {
 
     @Autowired

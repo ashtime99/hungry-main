@@ -5,6 +5,7 @@ import com.ash.server.pojo.RespBean;
 import com.ash.server.pojo.UserAddress;
 import com.ash.server.service.IUserAddressService;
 import com.ash.server.service.IUserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * @Description: 用户地址
- * @Author ash
- * @Date 2021/3/4 13:47
- * @Version 1.0
+ * <p>
+ * 用户地址API
+ * </p>
+ *
+ * @author ash
+ * @version 1.0
+ * @since 2021/3/29 12:09
  */
 @RestController
 @RequestMapping("/address")
+@Api(tags = "用户地址API")
 public class UserAddressController {
 
     @Autowired
