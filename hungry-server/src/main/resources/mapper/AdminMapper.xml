@@ -7,6 +7,7 @@
         <id column="admin_id" property="adminId" />
         <result column="admin_username" property="adminUsername" />
         <result column="admin_password" property="adminPassword" />
+        <result column="admin_type" property="adminType" />
         <result column="admin_face" property="adminFace" />
         <result column="admin_phone" property="adminPhone" />
         <result column="admin_create_time" property="adminCreateTime" />
@@ -43,12 +44,32 @@
                 LEFT JOIN
             h_role r ON r.role_id=ar.role_id
         WHERE
-            a.admin_id!=#{adminId}
+            a.admin_id=#{adminId}
         <if test="null!=keywords and ''!=keywords">
             AND a.admin_username LIKE CONCAT('%',#{keywords},'%')
         </if>
         ORDER BY
             a.admin_id
+    </select>
+    <select id="getAllAdminByPage" resultMap="AdminWithRole">
+        SELECT
+        a.*,
+        r.role_id,
+        r.role_name,
+        r.role_name_zh
+        FROM
+        h_admin a
+        LEFT JOIN
+        h_admin_role ar ON a.admin_id=ar.admin_id
+        LEFT JOIN
+        h_role r ON r.role_id=ar.role_id
+        WHERE
+        a.admin_type=#{adminType}
+        <if test="null!=keywords and ''!=keywords">
+            AND a.admin_username LIKE CONCAT('%',#{keywords},'%')
+        </if>
+        ORDER BY
+        a.admin_id
     </select>
 
 

@@ -1,5 +1,6 @@
 package com.ash.server.service;
 
+import com.ash.server.pojo.RespBean;
 import com.ash.server.pojo.Shoppingcart;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -16,5 +17,7 @@ import java.util.List;
  */
 public interface IShoppingcartService extends IService<Shoppingcart> {
 
-    List<Shoppingcart> getShoppingcartByUser(Integer userId);
+    List<Shoppingcart> getShoppingcartByUser(Long userId);
+
+    RespBean addShoppingcart(Shoppingcart shoppingcart);
 }

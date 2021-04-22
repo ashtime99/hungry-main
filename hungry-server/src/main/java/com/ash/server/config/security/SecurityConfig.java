@@ -64,24 +64,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new JwtAuthenticationTokenFilter();
     }
 
-    @Override
-    @Bean
-    protected AuthenticationManager authenticationManager() throws Exception {
-        DaoAuthenticationProvider dao1 = new DaoAuthenticationProvider();
-        dao1.setUserDetailsService(us1());
-
-        DaoAuthenticationProvider dao2 = new DaoAuthenticationProvider();
-        dao2.setUserDetailsService(us2());
-
-        ProviderManager manager = new ProviderManager(dao1, dao2);
-        return manager;
-    }
+//    @Override
+//    @Bean
+//    protected AuthenticationManager authenticationManager() throws Exception {
+//        DaoAuthenticationProvider dao1 = new DaoAuthenticationProvider();
+//        dao1.setUserDetailsService(us1());
+//
+//        DaoAuthenticationProvider dao2 = new DaoAuthenticationProvider();
+//        dao2.setUserDetailsService(us2());
+//
+//        ProviderManager manager = new ProviderManager(dao1, dao2);
+//        return manager;
+//    }
 
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
         //auth.userDetailsService(userService);
         //auth.parentAuthenticationManager(authenticationManager());
     }
@@ -91,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         webSecurity.ignoring().antMatchers(
                 "/login", "/logout", "/css/**", "/js/**", "/index.html", "favicon.ico",
                 "/doc.html", "/swagger-resources/**", "/v2/api-docs/**", "/webjars/**",
-                "/captcha","/images/**","/user/login"
+                "/captcha","/images/**","/user/login","/order/pay/**"
         );
     }
 
@@ -131,46 +131,46 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-//    @Override
-//    @Bean
-//    protected UserDetailsService userDetailsService() {
-//
-//        return username -> {
-//            Admin admin = adminService.getAdminByUsername(username);
-//            if (null != admin) {
-//                admin.setRoles(adminService.getRoles(admin.getAdminId()));
-//                return admin;
-//            }
-//            throw new UsernameNotFoundException("用户名或密码不正确");
-//        };
-//    }
-
+    @Override
     @Bean
-    UserDetailsService us2() {
-        return adminUsername -> {
-            System.out.println("userUsername:"+adminUsername);
-            User user = userService.getUserByUsername(adminUsername);
-            if (null != user) {
+    protected UserDetailsService userDetailsService() {
 
-                return user;
-            }
-            throw new UsernameNotFoundException("账户或密码不正确");
-        };
-    }
-
-    @Bean
-    @Primary
-    UserDetailsService us1() {
-
-        return adminUsername -> {
-            System.out.println("adminUsername:"+adminUsername);
-            Admin admin = adminService.getAdminByUsername(adminUsername);
+        return username -> {
+            Admin admin = adminService.getAdminByUsername(username);
             if (null != admin) {
                 admin.setRoles(adminService.getRoles(admin.getAdminId()));
                 return admin;
-            }else return null;
-            //throw new UsernameNotFoundException("账户或密码不正确");
+            }
+            throw new UsernameNotFoundException("用户名或密码不正确");
         };
     }
+
+//    @Bean
+//    UserDetailsService us2() {
+//        return adminUsername -> {
+//            System.out.println("userUsername:"+adminUsername);
+//            User user = userService.getUserByUsername(adminUsername);
+//            if (null != user) {
+//
+//                return user;
+//            }
+//            throw new UsernameNotFoundException("账户或密码不正确");
+//        };
+//    }
+//
+//    @Bean
+//    @Primary
+//    UserDetailsService us1() {
+//
+//        return adminUsername -> {
+//            System.out.println("adminUsername:"+adminUsername);
+//            Admin admin = adminService.getAdminByUsername(adminUsername);
+//            if (null != admin) {
+//                admin.setRoles(adminService.getRoles(admin.getAdminId()));
+//                return admin;
+//            }else return null;
+//            //throw new UsernameNotFoundException("账户或密码不正确");
+//        };
+//    }
 
 }

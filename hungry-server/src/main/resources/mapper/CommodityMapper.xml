@@ -5,6 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ash.server.pojo.Commodity">
         <id column="commodity_id" property="commodityId" />
+        <result column="category_id" property="categoryId" />
         <result column="commodity_image" property="commodityImage" />
         <result column="commodity_name" property="commodityName" />
         <result column="commodity_stock" property="commodityStock" />
@@ -19,7 +20,7 @@
     
     <resultMap id="getCategoryInfo" type="com.ash.server.pojo.Commodity" extends="BaseResultMap">
         <association property="category" javaType="com.ash.server.pojo.Category">
-            <id column="category_id" property="categoryId" />
+<!--            <id column="category_id" property="categoryId" />-->
             <result column="category_name" property="categoryName" />
         </association>
     </resultMap>

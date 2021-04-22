@@ -30,19 +30,19 @@ public class Shoppingcart implements Serializable {
 
     @ApiModelProperty(value = "购物车id")
     @TableId(value = "shoppingcart_id", type = IdType.AUTO)
-    private Integer shoppingcartId;
+    private Long shoppingcartId;
 
     @ApiModelProperty(value = "用户id")
-    private Integer adminId;
+    private Long userId;
 
-    @ApiModelProperty(value = "商品规格id")
-    private Integer commoditySpecId;
+    @ApiModelProperty(value = "商品id")
+    private Integer commodityId;
 
     @ApiModelProperty(value = "购物车数量")
     private Integer shoppingcartNum;
 
-    @ApiModelProperty(value = "购物车删除状态")
-    private Boolean shoppingcartDelete;
+    @ApiModelProperty(value = "购物车冻结状态")
+    private Boolean shoppingcartLocked;
 
     @ApiModelProperty(value = "购物车创建时间")
     private LocalDateTime shoppingcartCreateTime;
@@ -50,21 +50,14 @@ public class Shoppingcart implements Serializable {
     @ApiModelProperty(value = "购物车最近修改时间")
     private LocalDateTime shoppingcartUpdateTime;
 
-    @ApiModelProperty(value = "用户")
+    @ApiModelProperty(value = "用户名")
     @TableField(exist = false)
-    private User user;
-
-    @ApiModelProperty(value = "商品类别")
-    @TableField(exist = false)
-    private CommoditySpec commoditySpec;
+    private String username;
 
     @ApiModelProperty(value = "商品")
     @TableField(exist = false)
     private Commodity commodity;
 
-    @ApiModelProperty(value = "类别")
-    @TableField(exist = false)
-    private Spec spec;
 
 
 

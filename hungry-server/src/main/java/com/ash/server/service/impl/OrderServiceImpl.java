@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>
@@ -40,5 +41,20 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         IPage<Order>orderByPage=orderMapper.getOrderByPage(page,order,beginDataScope);
         RespPageBean respPageBean=new RespPageBean(orderByPage.getTotal(),orderByPage.getRecords());
         return respPageBean;
+    }
+
+    @Override
+    public List<Order> getOrderByState(Long userId, Integer state) {
+        return orderMapper.getOrderByState(userId,state);
+    }
+
+    @Override
+    public List<Order> getOrderByOp(Long adminId, Integer state) {
+        return null;
+    }
+
+    @Override
+    public List<Order> getOrderByDr(Long adminId, Integer state) {
+        return null;
     }
 }

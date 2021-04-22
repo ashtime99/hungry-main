@@ -3,6 +3,7 @@ package com.ash.server.service.impl;
 import com.ash.server.mapper.MenuMapper;
 import com.ash.server.pojo.Admin;
 import com.ash.server.pojo.Menu;
+import com.ash.server.pojo.User;
 import com.ash.server.service.IMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
      */ 
     @Override
     public List<Menu> getMenusByAdminId() {
-        Integer adminId=((Admin)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAdminId();
+        Long adminId=((Admin)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAdminId();
         ValueOperations<String,Object>valueOperations=redisTemplate.opsForValue();
         //从redis获取菜单数据
         List<Menu>menus=(List<Menu>)valueOperations.get("menu_"+adminId);
@@ -76,8 +77,18 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         return menuMapper.getAllMenus();
     }
 
-    @Override
-    public List<Menu> getMenusByUser() {
-        return null;
-    }
+//    @Override
+//    public List<Menu> getMenusByUserId() {
+//        Long userId=((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserId();
+//        ValueOperations<String,Object>valueOperations=redisTemplate.opsForValue();
+//        //从redis获取菜单数据
+//        List<Menu>menus=(List<Menu>)valueOperations.get("menu_"+userId);
+//        //如果为空，去数据库获取
+//        if (CollectionUtils.isEmpty(menus)){
+//            menus=menuMapper.getMenusByAdminId(userId);
+//            //添加到redis
+//            valueOperations.set("menu_"+userId,menus);
+//        }
+//        return menus;
+//    }
 }

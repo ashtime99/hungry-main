@@ -85,5 +85,12 @@ jwt:
   expiration: 604800
   #JWT负载中拿到开头
   tokenHead: Bearer
+knife4j:
+  enable: true
+  setting:
+    enableOpenApi: false
+    enableFooter: false
+    enableFooterCustom: true
+    footerCustomContent: Apache License 2.0 | Copyright  2021-[xyc]
 
 

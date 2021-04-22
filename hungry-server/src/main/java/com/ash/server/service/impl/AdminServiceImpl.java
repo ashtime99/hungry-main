@@ -1,6 +1,6 @@
 package com.ash.server.service.impl;
 
-import com.ash.server.AdminUtils;
+import com.ash.server.util.AdminUtils;
 import com.ash.server.config.security.component.JwtTokenUtil;
 import com.ash.server.mapper.AdminMapper;
 import com.ash.server.mapper.AdminRoleMapper;
@@ -8,6 +8,8 @@ import com.ash.server.mapper.RoleMapper;
 import com.ash.server.pojo.*;
 import com.ash.server.service.IAdminService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,7 +110,7 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
      * @Date: 17:25 2021/2/5
      */ 
     @Override
-    public List<Role> getRoles(Integer adminId) {
+    public List<Role> getRoles(Long adminId) {
         return roleMapper.getRoles(adminId);
     }
 
@@ -154,5 +156,13 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
             return RespBean.success("添加成功！");
         }
         return RespBean.error("添加失败!");
+    }
+
+    @Override
+    public RespPageBean getAllAdminByPage(Integer currentPage, Integer size, Integer adminType, String keywords) {
+        Page<Admin> page=new Page<>(currentPage,size);
+        IPage<Admin> adminByPage=adminMapper.getAllAdminByPage(page,adminType,keywords);
+        RespPageBean respPageBean=new RespPageBean(adminByPage.getTotal(),adminByPage.getRecords());
+        return respPageBean;
     }
 }

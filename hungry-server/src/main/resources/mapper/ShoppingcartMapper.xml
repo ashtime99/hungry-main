@@ -5,40 +5,32 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.ash.server.pojo.Shoppingcart">
         <id column="shoppingcart_id" property="shoppingcartId" />
-<!--        <result column="user_id" property="userId" />-->
+        <result column="user_id" property="userId" />
 <!--        <result column="commodity_id" property="commodityId" />-->
-        <result column="commodity_spec_id" property="commoditySpecId" />
+        <result column="commodity_id" property="commodityId" />
         <result column="shoppingcart_num" property="shoppingcartNum" />
-        <result column="shoppingcart_delete" property="shoppingcartDelete" />
+        <result column="shoppingcart_locked" property="shoppingcartLocked" />
         <result column="shoppingcart_create_time" property="shoppingcartCreateTime" />
         <result column="shoppingcart_update_time" property="shoppingcartUpdateTime" />
     </resultMap>
 
     <resultMap id="ShoppingcartByUser" type="com.ash.server.pojo.Shoppingcart" extends="BaseResultMap">
-        <association property="user" javaType="com.ash.server.pojo.User">
-            <id column="user_id" property="userId"/>
-            <result column="user_nickname" property="userNickname" />
+        <association property="username" javaType="string">
+            <result column="admin_username" javaType="string"/>
         </association>
-        <association property="commoditySpec" javaType="com.ash.server.pojo.CommoditySpec">
-            <id column="commodity_spec_id" property="commoditySpecId" />
-            <association property="commodity" javaType="com.ash.server.pojo.Commodity">
+        <association property="commodity" javaType="com.ash.server.pojo.Commodity">
                 <id column="commodity_id" property="commodityId" />
                 <result column="commodity_image" property="commodityImage" />
                 <result column="commodity_name" property="commodityName" />
                 <result column="commodity_price" property="commodityPrice" />
                 <result column="commodity_discount" property="commodityDiscount" />
                 <result column="commodity_describe" property="commodityDescribe" />
-            </association>
-            <association property="spec" javaType="com.ash.server.pojo.Spec">
-                <id column="spec_id" property="specId" />
-                <result column="spec_name" property="specName" />
-            </association>
         </association>
     </resultMap>
 
     <select id="getShoppingcartByUser" resultMap="ShoppingcartByUser">
         SELECT
-            u.user_nickname,
+            a.admin_username,
             s.*,
             c.commodity_id,
             c.commodity_image,
@@ -46,22 +38,15 @@
             c.commodity_stock,
             c.commodity_price,
             c.commodity_discount,
-            c.commodity_describe,
-            cs.commodity_spec_id,
-            sp.spec_name,
-            sp.spec_id
+            c.commodity_describe
         FROM
             h_shoppingcart s,
-            h_user u,
-            h_commodity c,
-            h_spec sp,
-            h_commodity_spec cs
+            h_admin a,
+            h_commodity c
         WHERE
-            s.user_id=u.user_id
-          AND cs.commodity_id=c.commodity_id
-          AND s.commodity_spec_id=cs.commodity_spec_id
-          AND cs.spec_id=sp.spec_id
-          AND u.user_id=#{userId}
+            s.user_id=a.admin_id
+          AND s.commodity_id=c.commodity_id
+          AND s.user_id=#{userId}
     </select>
 
 </mapper>

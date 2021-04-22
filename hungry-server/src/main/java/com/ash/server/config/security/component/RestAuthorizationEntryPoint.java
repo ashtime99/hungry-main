@@ -13,11 +13,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * @Description 当未登录或者token失效时访问接口，自定义返回结果
- * @Author ash
- * @Date 2021/1/27 16:27
- * @Version 1.0
- **/
+ * <p>
+ * 当未登录或者token失效时访问接口，自定义返回结果
+ * </p>
+ *
+ * @author ash
+ * @version 1.0
+ * @since 2021/4/10 21:59
+ */
 @Component
 public class RestAuthorizationEntryPoint implements AuthenticationEntryPoint {
 

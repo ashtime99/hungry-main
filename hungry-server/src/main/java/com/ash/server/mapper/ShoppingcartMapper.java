@@ -19,5 +19,5 @@ import java.util.List;
 @Repository
 public interface ShoppingcartMapper extends BaseMapper<Shoppingcart> {
 
-    List<Shoppingcart> getShoppingcartByUser(@Param("userId") Integer userId);
+    List<Shoppingcart> getShoppingcartByUser(@Param("userId") Long userId);
 }

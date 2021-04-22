@@ -1,5 +1,7 @@
 package com.ash.server.controller;
 
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +26,7 @@ import java.io.IOException;
  * @since 2021/3/29 12:07
  */
 @RestController
+@ApiSupport(order = 0)
 @Api(tags = "验证码API")
 public class CaptchaController {
 

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -31,42 +32,46 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode(callSuper = false)
 @TableName("h_admin")
 @ApiModel(value="Admin对象", description="")
+@JsonIgnoreProperties(value ={"authorities","username","enabled","accountNonExpired","credentialsNonExpired","accountNonLocked"})
 public class Admin implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "管理员id")
+    @ApiModelProperty(value = "用户id")
     @TableId(value = "admin_id", type = IdType.AUTO)
-    private Integer adminId;
+    private Long adminId;
 
-    @ApiModelProperty(value = "管理员账户")
+    @ApiModelProperty(value = "用户账户")
     private String adminUsername;
 
-    @ApiModelProperty(value = "管理员密码")
+    @ApiModelProperty(value = "用户密码")
     private String adminPassword;
 
-    @ApiModelProperty(value = "管理员头像")
+    @ApiModelProperty(value = "用户类型")
+    private Boolean adminType;
+
+    @ApiModelProperty(value = "用户头像")
     private String adminFace;
 
-    @ApiModelProperty(value = "管理员联系号码")
+    @ApiModelProperty(value = "用户联系号码")
     private String adminPhone;
 
-    @ApiModelProperty(value = "管理员创建时间")
+    @ApiModelProperty(value = "用户创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime adminCreateTime;
 
-    @ApiModelProperty(value = "管理员最近修改时间")
+    @ApiModelProperty(value = "用户最近修改时间")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime adminUpdateTime;
 
-    @ApiModelProperty(value = "管理员最近登录时间")
+    @ApiModelProperty(value = "用户最近登录时间")
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
     private LocalDateTime adminLoginTime;
 
-    @ApiModelProperty(value = "管理员是否被删除")
+    @ApiModelProperty(value = "用户是否被删除")
     private Boolean adminEnabled;
 
-    @ApiModelProperty(value = "管理员是否被冻结")
+    @ApiModelProperty(value = "用户是否被冻结")
     private Boolean adminLocked;
 
     @ApiModelProperty(value = "角色列表")

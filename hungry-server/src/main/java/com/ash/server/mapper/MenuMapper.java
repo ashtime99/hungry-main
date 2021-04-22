@@ -25,7 +25,7 @@ public interface MenuMapper extends BaseMapper<Menu> {
      * @Author ash
      * @Date: 17:40 2021/1/30
      */ 
-    List<Menu> getMenusByAdminId(Integer adminId);
+    List<Menu> getMenusByAdminId(Long adminId);
 
     /**
      * @Description: 根据角色获取菜单列表 

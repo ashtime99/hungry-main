@@ -25,5 +25,5 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @Author ash
      * @Date: 17:24 2021/2/5
      */ 
-    List<Role> getRoles(Integer adminId);
+    List<Role> getRoles(Long adminId);
 }

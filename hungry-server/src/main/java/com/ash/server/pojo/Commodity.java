@@ -1,6 +1,7 @@
 package com.ash.server.pojo;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
+import cn.afterturn.easypoi.excel.annotation.ExcelEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -8,8 +9,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -46,19 +49,19 @@ public class Commodity implements Serializable {
     @Excel(name = "商品名称")
     private String commodityName;
 
-    @ApiModelProperty(value = "商品库存")
-    @Excel(name = "商品库存")
-    private String commodityStock;
-
     @ApiModelProperty(value = "商品价格")
     @Excel(name = "商品价格")
     private BigDecimal commodityPrice;
+
+    @ApiModelProperty(value = "商品库存")
+    @Excel(name = "商品库存")
+    private Integer commodityStock;
 
     @ApiModelProperty(value = "商品折扣")
     private String commodityDiscount;
 
     @ApiModelProperty(value = "商品描述")
-    @Excel(name = "商品描述")
+    @Excel(name = "商品分类")
     private String commodityDescribe;
 
     @ApiModelProperty(value = "商品冻结状态（默认0，0-正常，1-冻结）")
@@ -78,6 +81,7 @@ public class Commodity implements Serializable {
 
     @ApiModelProperty(value = "类别")
     @TableField(exist = false)
+    @ExcelEntity(name = "商品分类")
     private Category category;
 
 

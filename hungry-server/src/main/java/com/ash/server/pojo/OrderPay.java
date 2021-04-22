@@ -6,21 +6,24 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.math.BigDecimal;
+
 /**
- * @Description 用户登录实体类
- * @Author ash
- * @Date 2021/2/10 15:30
- * @Version 1.0
- **/
+ * <p>
+ *
+ * </p>
+ *
+ * @author ash
+ * @version 1.0
+ * @since 2021/4/20 14:30
+ */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "UserLoginParam对象",description = "")
-public class UserLoginParam {
+@ApiModel(value = "OrderPay对象",description = "")
+public class OrderPay {
     @ApiModelProperty(value = "用户名",required = true)
-    private String username;
+    private Long oid;
     @ApiModelProperty(value = "密码",required = true)
-    private String password;
-    @ApiModelProperty(value = "验证码",required = true)
-    private String code;
+    private BigDecimal amount;
 }

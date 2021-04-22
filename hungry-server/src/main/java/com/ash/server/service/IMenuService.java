@@ -7,11 +7,12 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 菜单业务类
  * </p>
  *
  * @author ash
- * @since 2021-01-26
+ * @version 1.0
+ * @since 2021/4/4 15:24
  */
 public interface IMenuService extends IService<Menu> {
 
@@ -34,18 +35,8 @@ public interface IMenuService extends IService<Menu> {
     /**
      * 查询所有菜单
      *
-     * @param
      * @return java.util.List<com.ash.server.pojo.Menu>
      * @author ash
      */
     List<Menu> getAllMenus();
-
-    /**
-     * 根据用户显示菜单
-     *
-     * @param
-     * @return java.util.List<com.ash.server.pojo.Menu>
-     * @author ash
-     */
-    List<Menu> getMenusByUser();
 }

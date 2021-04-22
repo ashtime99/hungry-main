@@ -3,7 +3,6 @@ package com.ash.server.service;
 import com.ash.server.pojo.AdminLoginParam;
 import com.ash.server.pojo.RespBean;
 import com.ash.server.pojo.User;
-import com.ash.server.pojo.UserLoginParam;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import javax.servlet.http.HttpServletRequest;

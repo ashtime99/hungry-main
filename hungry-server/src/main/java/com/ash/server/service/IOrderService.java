@@ -5,6 +5,7 @@ import com.ash.server.pojo.RespPageBean;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>
@@ -24,4 +25,10 @@ public interface IOrderService extends IService<Order> {
      * @Date: 10:49 2021/3/18
      */
     RespPageBean getOrderByPage(Integer currentPage, Integer size, Order order, LocalDate[] beginDataScope);
+
+    List<Order> getOrderByState(Long userId, Integer state);
+
+    List<Order> getOrderByOp(Long adminId, Integer state);
+
+    List<Order> getOrderByDr(Long adminId, Integer state);
 }

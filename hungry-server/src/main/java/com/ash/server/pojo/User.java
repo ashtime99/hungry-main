@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 @EqualsAndHashCode(callSuper = false)
 @TableName("h_user")
 @ApiModel(value="User对象", description="")
+@JsonIgnoreProperties({""})
 public class User implements Serializable,UserDetails{
 
     private static final long serialVersionUID = 1L;

@@ -1,5 +1,8 @@
 package com.ash.server.config.security.component;
 
+import com.ash.server.service.IAdminService;
+import com.ash.server.service.IUserService;
+import com.ash.server.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,6 +35,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private UserServiceImpl userService;
+    @Autowired
+    private IAdminService adminService;
 
 
     @Override
@@ -46,6 +53,9 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             if (null!=username&&null== SecurityContextHolder.getContext().getAuthentication()){
                 //登录
                 UserDetails userDetails=userDetailsService.loadUserByUsername(username);
+                if (null==userDetails){
+                    userDetails=userService.loadUserByUsername(username);
+                }
                 //验证token是否有效，重新设置用户对象
                 if (jwtTokenUtil.validateToken(authToken,userDetails)){
                     UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());

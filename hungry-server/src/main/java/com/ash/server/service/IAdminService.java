@@ -1,9 +1,6 @@
 package com.ash.server.service;
 
-import com.ash.server.pojo.Admin;
-import com.ash.server.pojo.AdminLoginParam;
-import com.ash.server.pojo.RespBean;
-import com.ash.server.pojo.Role;
+import com.ash.server.pojo.*;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +42,7 @@ public interface IAdminService extends IService<Admin> {
      * @Author ash
      * @Date: 18:10 2021/3/23
      */ 
-    List<Role>getRoles(Integer adminId);
+    List<Role>getRoles(Long adminId);
 
     /**
      * 获取所有管理员
@@ -67,4 +64,6 @@ public interface IAdminService extends IService<Admin> {
     RespBean updateAdminRole(Integer adminId, Integer[] roleIds);
 
     RespBean addAdmin(Admin admin);
+
+    RespPageBean getAllAdminByPage(Integer currentPage, Integer size, Integer adminType, String keywords);
 }

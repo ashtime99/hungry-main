@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * <p>
@@ -29,4 +30,6 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @Date: 10:51 2021/3/18
      */
     IPage<Order> getOrderByPage(Page<Order> page, @Param("order") Order order, @Param("beginDataScope")LocalDate[] beginDataScope);
+
+    List<Order> getOrderByState(@Param("userId") Long userId, @Param("state") Integer state);
 }

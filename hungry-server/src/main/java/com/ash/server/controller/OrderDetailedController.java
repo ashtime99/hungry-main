@@ -16,15 +16,16 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 订单详情API
  * </p>
  *
  * @author ash
- * @since 2021-01-26
+ * @version 1.0
+ * @since 2021/4/11 19:34
  */
 @RestController
 @RequestMapping("/order/detailed")
-@Api(tags = "商品详情API")
+@Api(tags = "订单详情API")
 public class OrderDetailedController {
 
     @Autowired

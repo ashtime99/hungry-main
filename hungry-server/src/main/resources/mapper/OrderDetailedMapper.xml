@@ -6,29 +6,20 @@
     <resultMap id="BaseResultMap" type="com.ash.server.pojo.OrderDetailed">
         <id column="order_detailed_id" property="orderDetailedId"/>
         <result column="order_id" property="orderId"/>
-        <result column="commodity_category_id" property="commodityCategoryId"/>
+        <result column="commodity_id" property="commodityId"/>
         <result column="order_detailed_num" property="orderDetailedNum"/>
         <result column="order_detailed_price" property="orderDetailedPrice"/>
+        <result column="order_detailed_total" property="orderDetailedTotal"/>
     </resultMap>
 
     <resultMap id="OrderDetailInfo" type="com.ash.server.pojo.OrderDetailed" extends="BaseResultMap">
-        <association property="order" javaType="com.ash.server.pojo.Order">
-            <id column="order_id" property="orderId"/>
-        </association>
-        <association property="commoditySpec" javaType="com.ash.server.pojo.CommoditySpec">
-            <id column="commodity_spec_id" property="commoditySpecId"/>
-            <association property="commodity" javaType="com.ash.server.pojo.Commodity">
-                <id column="commodity_id" property="commodityId"/>
-                <result column="commodity_image" property="commodityImage"/>
-                <result column="commodity_name" property="commodityName"/>
-                <result column="commodity_price" property="commodityPrice"/>
-                <result column="commodity_discount" property="commodityDiscount"/>
-                <result column="commodity_describe" property="commodityDescribe"/>
-            </association>
-            <association property="spec" javaType="com.ash.server.pojo.Spec">
-                <id column="spec_id" property="specId"/>
-                <result column="spec_name" property="specName"/>
-            </association>
+        <association property="commodity" javaType="com.ash.server.pojo.Commodity">
+            <id column="commodity_id" property="commodityId"/>
+            <result column="commodity_image" property="commodityImage"/>
+            <result column="commodity_name" property="commodityName"/>
+            <result column="commodity_price" property="commodityPrice"/>
+            <result column="commodity_discount" property="commodityDiscount"/>
+            <result column="commodity_describe" property="commodityDescribe"/>
         </association>
     </resultMap>
     <!-- 通用查询结果列 -->
@@ -42,22 +33,16 @@
         SELECT
         od.*,
         o.order_id,
-        cs.commodity_spec_id,
-        s.spec_name,
         c.commodity_name
         FROM
         h_order o,
         h_order_detailed od,
-        h_spec s,
-        h_commodity c,
-        h_commodity_spec cs
+        h_commodity c
         WHERE
         o.order_id = od.order_id
-        AND cs.commodity_id = c.commodity_id
-        AND od.commodity_spec_id = cs.commodity_spec_id
-        AND cs.spec_id = s.spec_id
-        <if test="null!=orderDetailed.order.orderId">
-            AND od.order_id=#{orderDetailed.order.orderId}
+        AND od.commodity_id = c.commodity_id
+        <if test="null!=orderDetailed.orderId">
+            AND od.order_id=#{orderDetailed.orderId}
         </if>
         <if test="null!=orderDetailed.commodity.commodityName and ''!=orderDetailed.commodity.commodityName">
             AND c.commodity_name LIKE CONCAT('%',#{orderDetailed.commodity.commodityName},'%')
@@ -65,24 +50,15 @@
         ORDER BY o.order_id
     </select>
     <select id="getOrderDetailedByOrderId" resultMap="OrderDetailInfo">
-        SELECT
-        od.*,
-        o.order_id,
-        cs.commodity_spec_id,
-        s.spec_name,
-        c.commodity_name
-        FROM
-        h_order o,
-        h_order_detailed od,
-        h_spec s,
-        h_commodity c,
-        h_commodity_spec cs
-        WHERE
-        o.order_id = od.order_id
-        AND cs.commodity_id = c.commodity_id
-        AND od.commodity_spec_id = cs.commodity_spec_id
-        AND cs.spec_id = s.spec_id
-        AND o.order_id=#{orderId}
+        SELECT od.*,
+               o.order_id,
+               c.commodity_name
+        FROM h_order o,
+             h_order_detailed od,
+             h_commodity c
+        WHERE o.order_id = od.order_id
+          AND od.commodity_id = c.commodity_id
+          AND o.order_id = #{orderId}
         ORDER BY o.order_id
     </select>
 

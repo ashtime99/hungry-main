@@ -35,33 +35,34 @@ public class OrderDetailed implements Serializable {
     @ApiModelProperty(value = "订单id")
     private Long orderId;
 
-//    @ApiModelProperty(value = "商品id")
-//    private Integer commodityId;
-
-    @ApiModelProperty(value = "订单规格id")
-    private Integer commodityCategoryId;
+    @ApiModelProperty(value = "商品id")
+    private Long commodityId;
 
     @ApiModelProperty(value = "订单数量")
     private Integer orderDetailedNum;
 
-    @ApiModelProperty(value = "订单单价")
+    @ApiModelProperty(value = "订单详情单价")
     private BigDecimal orderDetailedPrice;
 
-    @ApiModelProperty(value = "订单")
-    @TableField(exist = false)
-    private Order order;
+    @ApiModelProperty(value = "订单详情总价")
+    private BigDecimal orderDetailedTotal;
 
-    @ApiModelProperty(value = "商品类别")
-    @TableField(exist = false)
-    private CommoditySpec commoditySpec;
+//    @ApiModelProperty(value = "订单")
+//    @TableField(exist = false)
+//    private Order order;
 
     @ApiModelProperty(value = "商品")
     @TableField(exist = false)
     private Commodity commodity;
 
-    @ApiModelProperty(value = "类别")
+    @ApiModelProperty(value = "商品图片")
     @TableField(exist = false)
-    private Spec spec;
+    private String commodityImage;
+
+    @ApiModelProperty(value = "商品名称")
+    @TableField(exist = false)
+    private String commodityName;
+
 
 
 }
